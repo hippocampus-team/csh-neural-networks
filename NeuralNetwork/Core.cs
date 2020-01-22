@@ -6,67 +6,65 @@ namespace NeuralNetworks
 {
     public class NeuralNetwork : ICloneable
     {
-        public List<Layer> Layers { get; }
-
-        private int Length;
-
+        public List<ILayer> Layers { get; }
+        private int Length { get; set; }
         public bool UseBiases { get; set; }
 
         public void Count()
         {
-            foreach (Layer layer in Layers)
+            foreach (ILayer layer in Layers)
                 layer.Count();
         }
 
         public double GetCost(double expectedOutput, int index)
         {
-            double cost = 1 - Math.Pow(expectedOutput - this[Length - 1][index].Value, 2);
+            double cost = 1 - Math.Pow(expectedOutput - ((IOutputMono)Layers.Last()).Output[index].Value, 2);
 
             return cost;
         }
 
-        public double[] GetCosts(double[] expectedOutput)
+        public List<double> GetCosts(List<double> expectedOutput)
         {
-            double[] costs = new double[this[Length - 1].Output.Count];
-            for (int i = 0; i < costs.Length; i++)
-                costs[i] = 1 - Math.Pow(expectedOutput[i] - this[Length - 1][i].Value, 2);
+            List<double> costs = new List<double>();
+            for (int i = 0; i < expectedOutput.Count; i++)
+                costs.Add(1 - Math.Pow(expectedOutput[i] - ((IOutputMono)Layers.Last()).Output[i].Value, 2));
 
             return costs;
         }
 
-        public double GetTotalCost(double[] expectedOutput)
+        public double GetTotalCost(List<double> expectedOutput)
         {
-            double[] costs = GetCosts(expectedOutput);
+            List<double> costs = GetCosts(expectedOutput);
             return costs.Average();
         }
 
         public void FillRandomWeights()
         {
-            foreach (Layer layer in Layers)
+            foreach (ILayer layer in Layers)
                 layer.FillWeightsRandom();
         }
 
         public void FillRandomBiases()
         {
-            foreach (Layer layer in Layers)
+            foreach (ILayer layer in Layers)
                 layer.FillBiasesRandom();
         }
 
-        public void MutateRandomWeights(int rate)
-        {
-            Random rnd = new Random(Guid.NewGuid().GetHashCode());
+        //public void MutateRandomWeights(int rate)
+        //{
+        //    Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
-            for (int i = 0; i < rate; i++)
-                Layers[rnd.Next(1, Length)].MutateRandomWeights();
-        }
+        //    for (int i = 0; i < rate; i++)
+        //        Layers[rnd.Next(1, Length)].MutateRandomWeights();
+        //}
 
-        public void MutateRandomBiases(int rate)
-        {
-            Random rnd = new Random(Guid.NewGuid().GetHashCode());
+        //public void MutateRandomBiases(int rate)
+        //{
+        //    Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
-            for (int i = 0; i < rate; i++)
-                Layers[rnd.Next(1, Length)].MutateRandomBiases();
-        }
+        //    for (int i = 0; i < rate; i++)
+        //        Layers[rnd.Next(1, Length)].MutateRandomBiases();
+        //}
 
         public void AddSimpleLayer(int length)
         {
@@ -75,7 +73,7 @@ namespace NeuralNetworks
             if (Length == 0)
                 layer = new SimpleLayer(length);
             else
-                layer = new SimpleLayer(this[Length - 1].Output);
+                layer = new SimpleLayer((IOutputMono)Layers.Last());
 
             Length++;
             Layers.Add(layer);
@@ -86,21 +84,48 @@ namespace NeuralNetworks
             DenceLayer layer;
 
             if (Length == 0)
-                layer = new DenceLayer(length);
+                throw new Exception("Dence layer can not be first one");
             else
-                layer = new DenceLayer(length, this[Length - 1]);
+                layer = new DenceLayer(length, (IOutputMono)Layers[Length - 1]);
 
             Length++;
             Layers.Add(layer);
         }
 
-        public NeuralNetwork()
+        public void AddConvolutionalLayer(Filter filter, int filtersAmount, int stride)
         {
-            Layers = new List<Layer>();
-            UseBiases = true;
+            ConvolutionalLayer layer;
+
+            if (Length == 0)
+                throw new Exception("Convolitional layer can not be first one");
+            else
+                layer = new ConvolutionalLayer((IOutputStack)Layers.Last(), filter, filtersAmount, stride);
+
+            Length++;
+            Layers.Add(layer);
         }
 
-        public Layer this [int layer]
+        public void AddPoolingLayer(Filter filter, int stride, int method)
+        {
+            StackPoolingLayer layer;
+
+            if (Length == 0)
+                throw new Exception("Pooling layer can not be first one");
+            else
+                layer = new StackPoolingLayer((IOutputStack)Layers.Last(), filter, stride, method);
+
+            Length++;
+            Layers.Add(layer);
+        }
+
+        public NeuralNetwork() : this(true) { }
+        public NeuralNetwork(bool useBiases)
+        {
+            Layers = new List<ILayer>();
+            UseBiases = useBiases;
+        }
+
+        public ILayer this [int layer]
         {
             get
             {
@@ -108,21 +133,22 @@ namespace NeuralNetworks
             }
         }
 
-        public void Backpropagation(double[] expectedOutput, double learningFactor)
+        public void Backpropagation(List<double> expectedOutput, double learningFactor)
         {
             Layers[Length - 1].CountDerivatives(expectedOutput);
 
-            for (int i = Length - 2; i > 0; i--)
+            for (int i = Length - 1; i > 1; i--)
                 Layers[i].CountDerivatives();
 
             if (UseBiases)
-                for (int i = Length - 1; i > 0; i--)
+                for (int i = Length - 1; i > 1; i--)
                     Layers[i].ApplyDerivativesToBiases(learningFactor);
 
-            for (int i = Length - 1; i > 0; i--)
+            for (int i = Length - 1; i > 1; i--)
                 Layers[i].ApplyDerivativesToWeights(learningFactor);
         }
 
+        //TODO: Clone()
         public object Clone()
         {
             return new NeuralNetwork();

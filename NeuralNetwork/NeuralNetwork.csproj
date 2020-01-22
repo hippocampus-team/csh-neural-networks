@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Additional.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="Dimentions.cs" />
     <Compile Include="Layers.cs" />
     <Compile Include="Nodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
