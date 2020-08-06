@@ -1,46 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using NeuralNetworks.Misc;
+using NeuralNetworks.Units;
 
-namespace NeuralNetworks {
+namespace NeuralNetworks.Misc {
+	public class MatrixModel {
+		public int size { get; }
+		public int stride { get; }
 
-public class MatrixModel {
-	public MatrixModel(int size, int stride) {
-		Size = size;
-		Stride = stride;
+		public MatrixModel(int size, int stride) {
+			this.size = size;
+			this.stride = stride;
+		}
+
+		public MatrixModel(EList<Unit> layer, int stride) : this(layer.columns, stride) { }
+
+		public int Count() => size * size;
+
+		public int FilterOutputsCount(Filter filter) => (int) Math.Pow((size - filter.size) / stride + 1, 2);
+
+		public int FilterLineCount(Filter filter) => (size - filter.size) / stride + 1;
 	}
 
-	public MatrixModel(EList<Unit> layer, int stride) : this(layer.Columns, stride) { }
-	public int Size { get; set; }
-	public int Stride { get; set; }
+	public class Filter : ICloneable {
+		public int size { get; }
+		public List<double> values { get; }
 
-	public int Count() => Size * Size;
+		public Filter(int size) {
+			this.size = size;
+			values = new List<double>();
 
-	public int FilterOutputsCount(Filter filter) => (int) Math.Pow((Size - filter.Size) / Stride + 1, 2);
+			for (int i = 0; i < size * size; i++)
+				values.Add(0);
+		}
 
-	public int FilterLineCount(Filter filter) => (Size - filter.Size) / Stride + 1;
-}
+		public Filter(List<double> values) {
+			size = (int) Math.Sqrt(values.Count);
+			this.values = values;
+		}
 
-public class Filter : ICloneable {
-	public Filter(int size) {
-		Size = size;
-		Values = new List<double>();
+		public object Clone() => new Filter(values);
 
-		for (int i = 0; i < size * size; i++)
-			Values.Add(0);
+		public int Count() => size * size;
 	}
-
-	public Filter(List<double> values) {
-		Size = (int) Math.Sqrt(values.Count);
-		Values = values;
-	}
-
-	public int Size { get; set; }
-	public List<double> Values { get; set; }
-
-	public object Clone() => new Filter(Values);
-
-	public int Count() => Size * Size;
-}
-
 }

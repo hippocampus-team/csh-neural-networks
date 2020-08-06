@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace NeuralNetworks {
-	
+namespace NeuralNetworks.Misc {
 	public static class MathTools {
 		public static double Sigmoid(double value) {
 			double k = Math.Exp(value);

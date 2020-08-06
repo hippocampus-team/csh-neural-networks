@@ -1,78 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NeuralNetworks.Misc;
 
-namespace NeuralNetworks {
+namespace NeuralNetworks.Units {
+	public class Neuron : Unit {
+		public Neuron(EList<Unit> inputUnits) {
+			value = 0;
+			weights = new List<double>();
+			this.inputUnits = inputUnits;
+			bias = Constants.defaultBias;
 
-public class Neuron : Unit {
-	public Neuron(EList<Unit> inputUnits) {
-		Value = 0;
-		Weights = new List<double>();
-		InputUnits = inputUnits;
-		Bias = Constants.defaultBias;
+			for (int i = 0; i < inputUnits.Count; i++)
+				weights.Add(1);
+		}
 
-		for (int i = 0; i < inputUnits.Count; i++)
-			Weights.Add(1);
+		public override void Count() {
+			double weightedSum = inputUnits.Select((unit, i) => unit.value * weights[i]).Sum();
+			value = MathTools.Sigmoid(weightedSum + bias);
+		}
+
+		public override void CountDerivatives() {
+			for (int i = 0; i < inputUnits.Count; i++)
+				inputUnits[i].derivative += derivative * MathTools.SigmoidDerivative(value) * weights[i];
+		}
+
+		public override void ApplyDerivativesToWeights(double learningFactor) {
+			for (int i = 0; i < weights.Count; i++)
+				weights[i] += derivative * inputUnits[i].value * MathTools.SigmoidDerivative(value) * learningFactor;
+		}
+
+		public override void ApplyDerivativesToBias(double learningFactor) =>
+			bias += derivative * MathTools.SigmoidDerivative(value) * learningFactor;
 	}
 
-	public override void Count() {
-		double weightedSum = 0;
+	public class ConvolutionalNeuron : Neuron {
+		private Filter filter { get; }
+		private List<int> indexes { get; }
+		private int column { get; }
 
-		for (int i = 0; i < InputUnits.Count; i++)
-			weightedSum += InputUnits[i].Value * Weights[i];
+		public ConvolutionalNeuron(EList<Unit> inputUnits, Filter filter, List<int> indexes, int column)
+			: base(inputUnits) {
+			this.filter = filter;
+			this.indexes = indexes;
+			this.column = column;
+		}
 
-		Value = MathTools.Sigmoid(weightedSum + Bias);
-	}
-
-	public override void CountDerivatives() {
-		for (int i = 0; i < InputUnits.Count; i++)
-			InputUnits[i].Derivative += Derivative * MathTools.SigmoidDerivative(Value) * Weights[i];
-	}
-
-	public override void ApplyDerivativesToWeights(double learningFactor) {
-		for (int i = 0; i < Weights.Count; i++)
-			Weights[i] += Derivative * InputUnits[i].Value * MathTools.SigmoidDerivative(Value) * learningFactor;
-	}
-
-	public override void ApplyDerivativesToBias(double learningFactor) =>
-		Bias += Derivative * MathTools.SigmoidDerivative(Value) * learningFactor;
-}
-
-public class ConvolutionalNeuron : Neuron {
-	public ConvolutionalNeuron(EList<Unit> inputUnits, List<Filter> filters, List<int> indexes) 
-		: base(inputUnits) {
-		Filters = filters;
-		Indexes = indexes;
-	}
-
-	private List<Filter> Filters { get; }
-	private List<int> Indexes { get; }
-
-	public override void Count() {
-		for (int c = 0; c < InputUnits.Columns; c++) {
+		public override void Count() {
 			double weightedSum = 0;
 
-			for (int r = 0; r < InputUnits.Rows; r++)
-				weightedSum += InputUnits[r, c].Value * Filters[c].Values[Indexes[r]];
+			for (int r = 0; r < inputUnits.rows; r++)
+				weightedSum += inputUnits[r, column].value * filter.values[indexes[r]];
 
-			Value = MathTools.Sigmoid(weightedSum + Bias);
+			value = MathTools.Sigmoid(weightedSum + bias);
+		}
+
+		public override void CountDerivatives() {
+			for (int r = 0; r < inputUnits.rows; r++)
+				inputUnits[r, column].derivative +=
+					derivative * MathTools.SigmoidDerivative(value) * filter.values[indexes[r]];
+		}
+
+		public override void ApplyDerivativesToWeights(double learningFactor) {
+			for (int w = 0; w < weights.Count; w++)
+				filter.values[indexes[w]] += learningFactor * derivative
+					* inputUnits[w, column].value * MathTools.SigmoidDerivative(value);
 		}
 	}
-
-	public override void CountDerivatives() {
-		for (int c = 0; c < InputUnits.Columns; c++)
-		for (int r = 0; r < InputUnits.Rows; r++)
-			InputUnits[r, c].Derivative +=
-				Derivative * MathTools.SigmoidDerivative(Value) * Filters[c].Values[Indexes[r]];
-	}
-
-	public override void ApplyDerivativesToWeights(double learningFactor) {
-		for (int w = 0; w < Weights.Count; w++)
-		for (int c = 0; c < InputUnits.Columns; c++)
-			Filters[c].Values[Indexes[w]] += learningFactor *
-				Derivative * InputUnits[w].Value * MathTools.SigmoidDerivative(Value);
-	}
-}
 
 // public class SharedNeuron : Neuron {
 // 	public SharedNeuron(List<double> sharedWeights, List<int> indexes) :
@@ -116,5 +109,4 @@ public class ConvolutionalNeuron : Neuron {
 // 			Weights[i] = SharedWeights[Indexes[i]];
 // 	}
 // }
-
 }

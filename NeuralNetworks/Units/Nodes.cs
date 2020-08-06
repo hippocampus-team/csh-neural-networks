@@ -1,42 +1,96 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NeuralNetworks.Misc;
 
-namespace NeuralNetworks {
+namespace NeuralNetworks.Units {
+	public class Node : Unit {
+		public Node() : this(0) { }
 
-public class Node : Unit {
-	public Node() : this(0) { }
+		public Node(double value) {
+			this.value = value;
+			weights = new List<double>();
+			bias = 0;
+			derivative = 0;
 
-	public Node(double value) {
-		Value = value;
-		Weights = new List<double>();
-		Bias = 0;
-		Derivative = 0;
+			inputUnits = new EList<Unit>();
+		}
 
-		InputUnits = new EList<Unit>();
+		public override void Count()                                          { }
+		public override void CountDerivatives()                               { }
+		public override void ApplyDerivativesToWeights(double learningFactor) { }
+		public override void ApplyDerivativesToBias(double learningFactor)    { }
 	}
 
-	public override void Count() { }
-	public override void CountDerivatives() { }
-	public override void ApplyDerivativesToWeights(double learningFactor) { }
-	public override void ApplyDerivativesToBias(double learningFactor) { }
-}
+	public class ReferNode : Node {
+		public ReferNode(Unit inputUnit) {
+			value = inputUnit.value;
+			weights = new List<double>();
+			bias = 0;
+			derivative = 0;
 
-public class ReferNode : Node {
-	public ReferNode(Unit inputUnit) {
-		Value = inputUnit.Value;
-		Weights = new List<double>();
-		Bias = 0;
-		Derivative = 0;
+			weights.Add(1);
 
-		Weights.Add(1);
+			inputUnits = new EList<Unit> {inputUnit};
+		}
 
-		InputUnits = new EList<Unit> { inputUnit };
+		public override void Count() => value = inputUnits[0].value;
+
+		public override void CountDerivatives() =>
+			inputUnits[0].derivative = derivative;
 	}
 
-	public override void Count() => Value = InputUnits[0].Value;
+	public class PoolingNode : Node {
+		public enum PoolingMethod {
+			Average,
+			Max,
+			Min
+		}
 
-	public override void CountDerivatives() =>
-		InputUnits[0].Derivative = Derivative;
+		private PoolingMethod method { get; }
+
+		public PoolingNode(EList<Unit> inputUnits) : this(inputUnits, 0) { }
+
+		public PoolingNode(EList<Unit> inputUnits, PoolingMethod method) {
+			value = 0;
+			weights = new List<double>();
+			bias = 0;
+			derivative = 0;
+
+			this.method = method;
+
+			this.inputUnits = inputUnits;
+		}
+
+		public override void Count() {
+			switch (method) {
+				case PoolingMethod.Average:
+					double average = inputUnits.Sum(unit => unit.value);
+
+					value = average / inputUnits.Count;
+					break;
+
+				case PoolingMethod.Max:
+					double max = inputUnits[0].value;
+
+					for (int i = 1; i < inputUnits.Count; i++)
+						if (inputUnits[i].value > max)
+							max = inputUnits[i].value;
+
+					value = max;
+					break;
+
+				case PoolingMethod.Min:
+					double min = inputUnits[0].value;
+
+					for (int i = 1; i < inputUnits.Count; i++)
+						if (inputUnits[i].value < min)
+							min = inputUnits[i].value;
+
+					value = min;
+					break;
+			}
+		}
+	}
 }
 
 // public class ArrayReferNode : Node {
@@ -56,61 +110,3 @@ public class ReferNode : Node {
 //
 // 	public override void CountDerivatives() => Derivative = OutputUnits[0].Derivative;
 // }
-
-public class PoolingNode : Node {
-	public PoolingNode(EList<Unit> inputUnits) : this(inputUnits, 0) { }
-
-	public PoolingNode(EList<Unit> inputUnits, PoolingMethod method) {
-		Value = 0;
-		Weights = new List<double>();
-		Bias = 0;
-		Derivative = 0;
-
-		Method = method;
-
-		InputUnits = inputUnits;
-	}
-
-	public PoolingMethod Method { get; set; }
-
-	public override void Count() {
-		switch (Method) {
-			case PoolingMethod.Average:
-				double average = 0;
-
-				foreach (Unit unit in InputUnits)
-					average += unit.Value;
-
-				Value = average / InputUnits.Count;
-				break;
-
-			case PoolingMethod.Max:
-				double max = InputUnits[0].Value;
-
-				for (int i = 1; i < InputUnits.Count; i++)
-					if (InputUnits[i].Value > max)
-						max = InputUnits[i].Value;
-
-				Value = max;
-				break;
-
-			case PoolingMethod.Min:
-				double min = InputUnits[0].Value;
-
-				for (int i = 1; i < InputUnits.Count; i++)
-					if (InputUnits[i].Value < min)
-						min = InputUnits[i].Value;
-
-				Value = min;
-				break;
-		}
-	}
-
-	public enum PoolingMethod {
-		Average,
-		Max,
-		Min
-	}
-}
-
-}

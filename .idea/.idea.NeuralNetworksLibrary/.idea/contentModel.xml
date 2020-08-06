@@ -11,6 +11,7 @@
           <e p="ConvolutionalLayer.cs" t="Include" />
           <e p="DenceLayer.cs" t="Include" />
           <e p="ILayer.cs" t="Include" />
+          <e p="PoolingLayer.cs" t="Include" />
           <e p="SimpleLayer.cs" t="Include" />
         </e>
         <e p="Misc" t="Include">
@@ -36,6 +37,7 @@
       <e p="NeuralNetworksLibrary.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="Testing" t="IncludeRecursive">
+        <e p="Autocoding.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -44,7 +46,6 @@
             </e>
           </e>
         </e>
-        <e p="Program.cs" t="Include" />
         <e p="Testing.csproj" t="IncludeRecursive" />
       </e>
     </e>
