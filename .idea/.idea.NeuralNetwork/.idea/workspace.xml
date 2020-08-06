@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e30eaae-2956-4b75-9a36-a5649b0ca4a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Additional.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Dimentions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Layers.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Nodes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork.sln" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/Additional.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/Core.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Core.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/Dimentions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/Layers.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/NeuralNetwork.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworks.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/Nodes.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Properties/AssemblyInfo.cs" afterDir="false" />
+    <list default="true" id="5d252c24-faba-45ae-95e3-6cc25da9db51" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/.idea.NeuralNetwork.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/projectSettingsUpdater.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/riderModule.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork.sln.DotSettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Additional.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Core.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Dimentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworks.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworks.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworks.csproj.DotSettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Nodes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Properties/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Testing.csproj" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,36 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FB3709D4-3DAE-4F5F-B978-5D5202B86B97/e3/8a438732/ICollection`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/35564249-115A-4714-BA88-A9A6C681950B/e3/f1e8c8e8/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FB3709D4-3DAE-4F5F-B978-5D5202B86B97/5e/06b48452/IList`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Nodes.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Core.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FB3709D4-3DAE-4F5F-B978-5D5202B86B97/97/3eea469e/List`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Dimentions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Additional.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/FB3709D4-3DAE-4F5F-B978-5D5202B86B97/f1/f7dc9c1f/020004AF.il" root0="SKIP_HIGHLIGHTING" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/NeuralNetwork/Misc/SmartArray.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/SmartArray.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Nodes.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Dimentions.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Layers.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Core.cs" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectId" id="1fdCA4n6Tky7XY0AUePgnifJJN8" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="1fiWDHkGamZcAU6duBa16gh4Xyo" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -79,77 +43,23 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
-  </component>
-  <component name="RunManager">
-    <configuration name="Debug" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="PROJECT_PATH" value="$PROJECT_DIR$/Debug/Debug.csproj" />
-      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
-      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
-      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="PROJECT_KIND" value="Console" />
-      <option name="PROJECT_TFM" value="" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
+    <property name="settings.editor.selected.configurable" value="preferences.environmentSetup" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4e30eaae-2956-4b75-9a36-a5649b0ca4a9" name="Default Changelist" comment="" />
-      <created>1596538439029</created>
+      <changelist id="5d252c24-faba-45ae-95e3-6cc25da9db51" name="Default Changelist" comment="" />
+      <created>1596701273709</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1596538439029</updated>
-      <workItem from="1596538469968" duration="538000" />
-      <workItem from="1596540007076" duration="16411000" />
+      <updated>1596701273709</updated>
+      <workItem from="1596701282289" duration="19000" />
     </task>
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="-1506" y="-356" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596542353423">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
-    </state>
-    <state x="-1506" y="-356" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596542353423" />
-    <state x="-1206" y="-163" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1596548448865">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
-    </state>
-    <state x="-1206" y="-163" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596548448865" />
-    <state x="-1368" y="-279" key="Rider.ProjectTemplateDialog.Size" timestamp="1596540293729">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
-    </state>
-    <state x="-1368" y="-279" key="Rider.ProjectTemplateDialog.Size/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596540293729" />
-    <state x="-1112" y="-291" key="RiderGenerateDialog" timestamp="1596561838511">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
-    </state>
-    <state x="-1112" y="-291" key="RiderGenerateDialog/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596561838511" />
-    <state x="-1761" y="-536" width="1719" height="1048" key="SettingsEditor" timestamp="1596550091476">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
-    </state>
-    <state x="-1761" y="-536" width="1719" height="1048" key="SettingsEditor/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596550091476" />
   </component>
 </project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NeuralNetworks.Misc;
 
 namespace NeuralNetworks {
+
 public class MatrixModel {
 	public MatrixModel(int size, int stride) {
 		Size = size;
@@ -41,4 +42,5 @@ public class Filter : ICloneable {
 
 	public int Count() => Size * Size;
 }
+
 }

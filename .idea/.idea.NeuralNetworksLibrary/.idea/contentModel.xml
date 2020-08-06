@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\5742G\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\5742G\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_NeuralNetworksLibrary.-435775686.00" t="ExcludeRecursive" />
+    <e p="D:\Coding\NeuralNetworksLibrary" t="IncludeFlat">
+      <e p="NeuralNetworks" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Constants.cs" t="Include" />
+        <e p="Layers" t="Include">
+          <e p="ConvolutionalLayer.cs" t="Include" />
+          <e p="DenceLayer.cs" t="Include" />
+          <e p="ILayer.cs" t="Include" />
+          <e p="SimpleLayer.cs" t="Include" />
+        </e>
+        <e p="Misc" t="Include">
+          <e p="Dimentions.cs" t="Include" />
+          <e p="EList.cs" t="Include" />
+          <e p="MathTools.cs" t="Include" />
+        </e>
+        <e p="NeuralNetwork.cs" t="Include" />
+        <e p="NeuralNetworks.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="NeuralNetworks.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Units" t="Include">
+          <e p="Base.cs" t="Include" />
+          <e p="Neurons.cs" t="Include" />
+          <e p="Nodes.cs" t="Include" />
+        </e>
+      </e>
+      <e p="NeuralNetworksLibrary.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Testing" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Testing.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Testing.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>

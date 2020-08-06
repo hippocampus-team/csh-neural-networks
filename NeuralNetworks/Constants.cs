@@ -1,21 +1,4 @@
-﻿using System;
-
-namespace NeuralNetworks {
-public static class Tools {
-	public static double Sigmoid(double value) {
-		float k = (float) Math.Exp(value);
-		return k / (1.0f + k);
-	}
-
-	public static double SigmoidDerivative(double value) => value * (1 - value);
-
-	public static double Clamp(double val, double min, double max) {
-		if (val.CompareTo(min) < 0) return min;
-		if (val.CompareTo(max) > 0) return max;
-		return val;
-	}
-}
-
+﻿namespace NeuralNetworks {
 public static class Constants {
 	public const double weightRandomFillSpread = 4;
 
