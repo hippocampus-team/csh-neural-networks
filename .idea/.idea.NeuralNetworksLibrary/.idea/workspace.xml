@@ -20,12 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4889fbc4-e7ca-447c-b76a-48d13d6a099d" name="Default Changelist" comment="Code fully refreshed">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworksLibrary.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworksLibrary.sln.DotSettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testing/Autocoding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Autocoding.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testing/Testing.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Testing.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Mnist.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Mnist.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +35,7 @@
     <setting file="file://$PROJECT_DIR$/Testing/Entery.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Testing/Mnist.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Autocoding.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Testing/Autocoding.cs" root0="FORCE_HIGHLIGHTING" />
@@ -127,7 +124,7 @@
       <updated>1596624212885</updated>
       <workItem from="1596624239569" duration="6035000" />
       <workItem from="1596701334232" duration="29839000" />
-      <workItem from="1596778390229" duration="1075000" />
+      <workItem from="1596778390229" duration="6656000" />
     </task>
     <task id="LOCAL-00001" summary="Transformed to .NET Core">
       <created>1596702333037</created>
@@ -143,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596715212790</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Mnist test added">
+      <created>1596779516513</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1596779516513</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -162,7 +166,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Transformed to .NET Core" />
     <MESSAGE value="Code fully refreshed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code fully refreshed" />
+    <MESSAGE value="Mnist test added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mnist test added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1052" y="-257" key="#xdebugger.XInspectDialog" timestamp="1596626609120">
@@ -177,22 +182,22 @@
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
     <state width="412" height="464" key="DebuggerActiveHint/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596721489004" />
-    <state width="1878" height="503" key="GridCell.Tab.0.bottom" timestamp="1596740998386">
+    <state width="1878" height="256" key="GridCell.Tab.0.bottom" timestamp="1596785104442">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.0.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998386" />
-    <state width="1878" height="503" key="GridCell.Tab.0.center" timestamp="1596740998385">
+    <state width="1878" height="256" key="GridCell.Tab.0.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596785104442" />
+    <state width="1878" height="256" key="GridCell.Tab.0.center" timestamp="1596785104442">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.0.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998385" />
-    <state width="1878" height="503" key="GridCell.Tab.0.left" timestamp="1596740998384">
+    <state width="1878" height="256" key="GridCell.Tab.0.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596785104442" />
+    <state width="1878" height="256" key="GridCell.Tab.0.left" timestamp="1596785104442">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.0.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998384" />
-    <state width="1878" height="503" key="GridCell.Tab.0.right" timestamp="1596740998385">
+    <state width="1878" height="256" key="GridCell.Tab.0.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596785104442" />
+    <state width="1878" height="256" key="GridCell.Tab.0.right" timestamp="1596785104442">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.0.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998385" />
+    <state width="1878" height="256" key="GridCell.Tab.0.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596785104442" />
     <state width="1878" height="503" key="GridCell.Tab.1.bottom" timestamp="1596740998386">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
@@ -273,10 +278,10 @@
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
     <state x="-1850" y="-517" width="1815" height="1047" key="SettingsEditor/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596715137548" />
-    <state x="-1368" y="-278" key="Vcs.Push.Dialog.v2" timestamp="1596702416310">
+    <state x="-1368" y="-278" key="Vcs.Push.Dialog.v2" timestamp="1596779563066">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state x="-1368" y="-278" key="Vcs.Push.Dialog.v2/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596702416310" />
+    <state x="-1368" y="-278" key="Vcs.Push.Dialog.v2/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596779563066" />
     <state x="-1384" y="-281" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1596626299672">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
