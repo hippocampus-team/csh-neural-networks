@@ -3,10 +3,10 @@ using NeuralNetworks;
 using NeuralNetworks.Misc;
 
 namespace Testing {
-	internal static class Program {
+	internal static class Autocoding {
 		private const int testNum = 128;
 
-		public static void Main(string[] args) {
+		public static void Run() {
 			NeuralNetwork nn = new NeuralNetwork(true);
 
 			nn.SetInputLength(testNum);

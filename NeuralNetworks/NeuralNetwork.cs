@@ -33,6 +33,14 @@ namespace NeuralNetworks {
 		public double GetTotalCost(List<double> expectedOutput) =>
 			GetCosts(expectedOutput).Average();
 
+		public int GetMaxIndexInOutput() {
+			EList<double> outputs = layers.Last().GetOutputValues();
+
+			int index = 0;
+			for (int i = 1; i < outputs.Count; i++) if (outputs[i] > outputs[index]) index = i;
+			return index;
+		}
+
 		public void FillRandomWeights() {
 			foreach (ILayer layer in layers)
 				layer.FillWeightsRandom();
@@ -43,15 +51,10 @@ namespace NeuralNetworks {
 				layer.FillBiasesRandom();
 		}
 
-		public void PutData(IEnumerable<double> data) {
-			IEnumerator<double> enumerator = data.GetEnumerator();
-
-			foreach (Unit unit in layers.First().input) {
-				unit.value = enumerator.Current;
-				enumerator.MoveNext();
-			}
-
-			enumerator.Dispose();
+		public void PutData(EList<double> data) {
+			for (int r = 0; r < layers.First().input.rows; r++)
+			for (int c = 0; c < layers.First().input.columns; c++)
+				layers.First().input[r, c].value = data[r, c];
 		}
 
 		public void SetInputLength(int length) {

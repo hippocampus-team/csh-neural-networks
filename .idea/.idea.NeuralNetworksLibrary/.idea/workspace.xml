@@ -19,22 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4889fbc4-e7ca-447c-b76a-48d13d6a099d" name="Default Changelist" comment="Transformed to .NET Core">
+    <list default="true" id="4889fbc4-e7ca-447c-b76a-48d13d6a099d" name="Default Changelist" comment="Code fully refreshed">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testing/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Autocoding.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworksLibrary.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworksLibrary.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Autocoding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Autocoding.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Testing.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Testing.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +36,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Testing/Entery.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Testing/Mnist.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Testing/Autocoding.cs" root0="FORCE_HIGHLIGHTING" />
@@ -71,7 +64,6 @@
         <option value="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Constants.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" />
@@ -79,6 +71,11 @@
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" />
+        <option value="$PROJECT_DIR$/Testing/Main.cs" />
+        <option value="$PROJECT_DIR$/Testing/Autocoding.cs" />
+        <option value="$PROJECT_DIR$/Testing/Entery.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" />
+        <option value="$PROJECT_DIR$/Testing/Mnist.cs" />
       </list>
     </option>
   </component>
@@ -129,7 +126,8 @@
       <option name="presentableId" value="Default" />
       <updated>1596624212885</updated>
       <workItem from="1596624239569" duration="6035000" />
-      <workItem from="1596701334232" duration="8118000" />
+      <workItem from="1596701334232" duration="29839000" />
+      <workItem from="1596778390229" duration="1075000" />
     </task>
     <task id="LOCAL-00001" summary="Transformed to .NET Core">
       <created>1596702333037</created>
@@ -138,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596702333037</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Code fully refreshed">
+      <created>1596715212790</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1596715212790</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,101 +156,107 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Transformed to .NET Core" />
-    <option name="LAST_COMMIT_MESSAGE" value="Transformed to .NET Core" />
+    <MESSAGE value="Code fully refreshed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code fully refreshed" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1052" y="-257" key="#xdebugger.XInspectDialog" timestamp="1596626609120">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
     <state x="-1052" y="-257" key="#xdebugger.XInspectDialog/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596626609120" />
-    <state x="-1206" y="-144" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1596715100986">
+    <state x="-1206" y="-144" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1596715159518">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state x="-1206" y="-144" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596715100986" />
-    <state width="1878" height="236" key="GridCell.Tab.0.bottom" timestamp="1596710638891">
+    <state x="-1206" y="-144" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596715159518" />
+    <state width="412" height="464" key="DebuggerActiveHint" timestamp="1596721489004">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="236" key="GridCell.Tab.0.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596710638891" />
-    <state width="1878" height="236" key="GridCell.Tab.0.center" timestamp="1596710638891">
+    <state width="412" height="464" key="DebuggerActiveHint/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596721489004" />
+    <state width="1878" height="503" key="GridCell.Tab.0.bottom" timestamp="1596740998386">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="236" key="GridCell.Tab.0.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596710638891" />
-    <state width="1878" height="236" key="GridCell.Tab.0.left" timestamp="1596710638891">
+    <state width="1878" height="503" key="GridCell.Tab.0.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998386" />
+    <state width="1878" height="503" key="GridCell.Tab.0.center" timestamp="1596740998385">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="236" key="GridCell.Tab.0.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596710638891" />
-    <state width="1878" height="236" key="GridCell.Tab.0.right" timestamp="1596710638891">
+    <state width="1878" height="503" key="GridCell.Tab.0.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998385" />
+    <state width="1878" height="503" key="GridCell.Tab.0.left" timestamp="1596740998384">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="236" key="GridCell.Tab.0.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596710638891" />
-    <state width="1878" height="503" key="GridCell.Tab.1.bottom" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.0.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998384" />
+    <state width="1878" height="503" key="GridCell.Tab.0.right" timestamp="1596740998385">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.1.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.1.center" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.0.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998385" />
+    <state width="1878" height="503" key="GridCell.Tab.1.bottom" timestamp="1596740998386">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.1.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.1.left" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.1.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998386" />
+    <state width="1878" height="503" key="GridCell.Tab.1.center" timestamp="1596740998386">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.1.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.1.right" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.1.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998386" />
+    <state width="1878" height="503" key="GridCell.Tab.1.left" timestamp="1596740998386">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.1.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.2.bottom" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.1.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998386" />
+    <state width="1878" height="503" key="GridCell.Tab.1.right" timestamp="1596740998386">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.2.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.2.center" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.1.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998386" />
+    <state width="1878" height="503" key="GridCell.Tab.2.bottom" timestamp="1596740998387">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.2.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.2.left" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.2.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998387" />
+    <state width="1878" height="503" key="GridCell.Tab.2.center" timestamp="1596740998387">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.2.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.2.right" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.2.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998387" />
+    <state width="1878" height="503" key="GridCell.Tab.2.left" timestamp="1596740998387">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.2.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.3.bottom" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.2.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998387" />
+    <state width="1878" height="503" key="GridCell.Tab.2.right" timestamp="1596740998387">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.3.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.3.center" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.2.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998387" />
+    <state width="1878" height="503" key="GridCell.Tab.3.bottom" timestamp="1596740998388">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.3.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.3.left" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.3.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998388" />
+    <state width="1878" height="503" key="GridCell.Tab.3.center" timestamp="1596740998388">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.3.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.3.right" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.3.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998388" />
+    <state width="1878" height="503" key="GridCell.Tab.3.left" timestamp="1596740998388">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.3.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.4.bottom" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.3.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998388" />
+    <state width="1878" height="503" key="GridCell.Tab.3.right" timestamp="1596740998388">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.4.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.4.center" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.3.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998388" />
+    <state width="1878" height="503" key="GridCell.Tab.4.bottom" timestamp="1596740998391">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.4.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.4.left" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.4.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998391" />
+    <state width="1878" height="503" key="GridCell.Tab.4.center" timestamp="1596740998390">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.4.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
-    <state width="1878" height="503" key="GridCell.Tab.4.right" timestamp="1596638604382">
+    <state width="1878" height="503" key="GridCell.Tab.4.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998390" />
+    <state width="1878" height="503" key="GridCell.Tab.4.left" timestamp="1596740998390">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
-    <state width="1878" height="503" key="GridCell.Tab.4.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596638604382" />
+    <state width="1878" height="503" key="GridCell.Tab.4.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998390" />
+    <state width="1878" height="503" key="GridCell.Tab.4.right" timestamp="1596740998391">
+      <screen x="-1920" y="-550" width="1920" height="1080" />
+    </state>
+    <state width="1878" height="503" key="GridCell.Tab.4.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596740998391" />
     <state x="-1290" y="-197" key="LayersDialog" timestamp="1596713903707">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>

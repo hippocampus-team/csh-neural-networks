@@ -39,6 +39,14 @@
       <e p="Testing" t="IncludeRecursive">
         <e p="Autocoding.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Entery.cs" t="Include" />
+        <e p="Mnist.cs" t="Include" />
+        <e p="mnist_data" t="Include">
+          <e p="test_imgs" t="Include" />
+          <e p="test_lbls" t="Include" />
+          <e p="train_imgs" t="Include" />
+          <e p="train_lbls" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
