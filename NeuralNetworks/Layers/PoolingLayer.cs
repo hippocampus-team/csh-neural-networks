@@ -3,14 +3,14 @@ using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 
 namespace NeuralNetworks.Layers {
-	public class PoolingLayer : ILayer {
+	public class PoolingLayer : Layer {
 		private MatrixModel model { get; }
 		private Filter mask { get; }
 
-		public EList<Unit> input { get; }
-		public EList<Unit> output { get; }
+		public override EList<Unit> input { get; }
+		public override EList<Unit> output { get; }
 
-		public PoolingLayer(ILayer inputLayer, Filter mask, int stride, PoolingNode.PoolingMethod method) {
+		public PoolingLayer(Layer inputLayer, Filter mask, int stride, PoolingNode.PoolingMethod method) {
 			model = new MatrixModel(inputLayer.output, stride);
 			this.mask = mask;
 
@@ -35,12 +35,12 @@ namespace NeuralNetworks.Layers {
 			output = nodes;
 		}
 
-		public void Count() {
+		public override void Count() {
 			foreach (Unit unit in output)
 				unit.Count();
 		}
 
-		public void CountDerivatives() {
+		public override void CountDerivatives() {
 			double part = 1d / mask.Count();
 
 			foreach (Unit node in input)
@@ -48,19 +48,19 @@ namespace NeuralNetworks.Layers {
 				inputLayerUnit.derivative += part * node.derivative;
 		}
 
-		public void CountDerivatives(EList<double> expectedOutput) {
+		public override void CountDerivatives(EList<double> expectedOutput) {
 			for (int r = 0; r < output.rows; r++)
 			for (int c = 0; c < output.columns; c++)
 				output[r, c].derivative = expectedOutput[r, c] - output[r, c].value;
 		}
 
-		public EList<double> GetInputValues() => throw new NotImplementedException();
+		public override EList<double> GetInputValues() => throw new NotImplementedException();
 
-		public EList<double> GetOutputValues() => throw new NotImplementedException();
+		public override EList<double> GetOutputValues() => throw new NotImplementedException();
 
-		public void FillWeightsRandom()                              { }
-		public void FillBiasesRandom()                               { }
-		public void ApplyDerivativesToWeights(double learningFactor) { }
-		public void ApplyDerivativesToBiases(double learningFactor)  { }
+		public override void FillWeightsRandom()                              { }
+		public override void FillBiasesRandom()                               { }
+		public override void ApplyDerivativesToWeights(double learningFactor) { }
+		public override void ApplyDerivativesToBiases(double learningFactor)  { }
 	}
 }

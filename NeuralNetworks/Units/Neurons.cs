@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NeuralNetworks.Misc;
+using Newtonsoft.Json.Linq;
 
 namespace NeuralNetworks.Units {
 	public class Neuron : Unit {
+		public List<double> weights { get; }
+		public double bias { get; set; }
+		
 		public Neuron(EList<Unit> inputUnits) {
 			value = 0;
 			weights = new List<double>();
@@ -31,6 +35,18 @@ namespace NeuralNetworks.Units {
 
 		public override void ApplyDerivativesToBias(double learningFactor) =>
 			bias += derivative * MathTools.SigmoidDerivative(value) * learningFactor;
+		
+		public override JObject ToJObject() {
+			JObject unit = base.ToJObject();
+			
+			unit["bias"] = bias;
+			
+			JArray weightsArray = new JArray();
+			foreach (double weight in weights) weightsArray.Add(weight);
+			unit["weights"] = weightsArray;
+
+			return unit;
+		}
 	}
 
 	public class ConvolutionalNeuron : Neuron {

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
+using Newtonsoft.Json.Linq;
 
 namespace NeuralNetworks.Layers {
-	public class SimpleLayer : ILayer {
-		public EList<Unit> input { get; }
-		public EList<Unit> output { get; }
+	public class SimpleLayer : Layer {
+		public override EList<Unit> input { get; }
+		public override EList<Unit> output { get; }
 
 		public SimpleLayer(int n) {
 			EList<Unit> nodes = new EList<Unit>();
@@ -27,7 +28,7 @@ namespace NeuralNetworks.Layers {
 			output = nodes;
 		}
 
-		public SimpleLayer(ILayer inputLayer) {
+		public SimpleLayer(Layer inputLayer) {
 			EList<Unit> nodes = new EList<Unit>();
 
 			foreach (Unit unit in inputLayer.output)
@@ -37,22 +38,22 @@ namespace NeuralNetworks.Layers {
 			output = nodes;
 		}
 
-		public void Count() {
+		public override void Count() {
 			foreach (Unit unit in output)
 				((Node) unit).Count();
 		}
 
-		public void CountDerivatives() {
+		public override void CountDerivatives() {
 			foreach (Unit unit in input)
 				unit.CountDerivatives();
 		}
 
-		public void CountDerivatives(EList<double> expectedOutput) {
+		public override void CountDerivatives(EList<double> expectedOutput) {
 			for (int i = 0; i < output.Count; i++)
 				output[i].derivative = expectedOutput[i] - output[i].value;
 		}
 
-		public EList<double> GetInputValues() {
+		public override EList<double> GetInputValues() {
 			EList<double> values = new EList<double>();
 
 			foreach (Unit unit in input)
@@ -61,7 +62,7 @@ namespace NeuralNetworks.Layers {
 			return values;
 		}
 
-		public EList<double> GetOutputValues() {
+		public override EList<double> GetOutputValues() {
 			EList<double> values = new EList<double>();
 
 			foreach (Unit unit in output)
@@ -70,9 +71,19 @@ namespace NeuralNetworks.Layers {
 			return values;
 		}
 
-		public void FillWeightsRandom()                              { }
-		public void FillBiasesRandom()                               { }
-		public void ApplyDerivativesToWeights(double learningFactor) { }
-		public void ApplyDerivativesToBiases(double learningFactor)  { }
+		public string Serialize() {
+			JObject layer = new JObject { ["type"] = nameof(SimpleLayer) };
+
+			JArray unitsArray = new JArray();
+			foreach (Unit unit in input) unitsArray.Add(unit.ToJObject());
+			layer["units"] = unitsArray;
+
+			return layer.ToString();
+		}
+
+		public override void FillWeightsRandom()                              { }
+		public override void FillBiasesRandom()                               { }
+		public override void ApplyDerivativesToWeights(double learningFactor) { }
+		public override void ApplyDerivativesToBiases(double learningFactor)  { }
 	}
 }

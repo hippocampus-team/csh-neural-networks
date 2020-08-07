@@ -4,14 +4,14 @@ using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 
 namespace NeuralNetworks.Layers {
-	public class ConvolutionalLayer : ILayer {
+	public class ConvolutionalLayer : Layer {
 		private List<List<Filter>> kernels { get; }
 		private MatrixModel model { get; }
 
-		public EList<Unit> input { get; }
-		public EList<Unit> output { get; }
+		public override EList<Unit> input { get; }
+		public override EList<Unit> output { get; }
 
-		public ConvolutionalLayer(ILayer inputLayer, Filter filter, int filtersAmount, int stride) {
+		public ConvolutionalLayer(Layer inputLayer, Filter filter, int filtersAmount, int stride) {
 			kernels = new List<List<Filter>>();
 			model = new MatrixModel(inputLayer.output, stride);
 
@@ -43,12 +43,12 @@ namespace NeuralNetworks.Layers {
 			output = neurons;
 		}
 
-		public void Count() {
+		public override void Count() {
 			foreach (Unit unit in output)
 				unit.Count();
 		}
 
-		public void FillWeightsRandom() {
+		public override void FillWeightsRandom() {
 			Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
 			for (int i = 0; i < kernels.Count; i++)
@@ -57,35 +57,37 @@ namespace NeuralNetworks.Layers {
 				kernels[i][j].values[k] = (rnd.NextDouble() - 0.5) * Constants.weightRandomFillSpread;
 		}
 
-		public void FillBiasesRandom() {
+		public override void FillBiasesRandom() {
 			Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
-			foreach (Unit unit in output)
-				unit.bias = (rnd.NextDouble() - 0.5) * Constants.biasRandomFillSpread;
+			foreach (Unit unit in output) {
+				ConvolutionalNeuron neuron = (ConvolutionalNeuron) unit;
+				neuron.bias = (rnd.NextDouble() - 0.5) * Constants.biasRandomFillSpread;
+			}
 		}
 
-		public void CountDerivatives() {
-			foreach (Unit unit in output)
+		public override void CountDerivatives() {
+			foreach (Unit unit in output) 
 				unit.CountDerivatives();
 		}
 
-		public void CountDerivatives(EList<double> expectedOutput) {
+		public override void CountDerivatives(EList<double> expectedOutput) {
 			for (int r = 0; r < output.rows; r++)
 			for (int c = 0; c < output.columns; c++)
 				output[r, c].derivative = expectedOutput[r, c] - output[r, c].value;
 		}
 
-		public void ApplyDerivativesToWeights(double learningFactor) {
+		public override void ApplyDerivativesToWeights(double learningFactor) {
 			foreach (Unit unit in output)
 				unit.ApplyDerivativesToWeights(learningFactor);
 		}
 
-		public void ApplyDerivativesToBiases(double learningFactor) {
+		public override void ApplyDerivativesToBiases(double learningFactor) {
 			foreach (Unit unit in output)
 				unit.ApplyDerivativesToBias(learningFactor);
 		}
 
-		public EList<double> GetInputValues()  => throw new NotImplementedException();
-		public EList<double> GetOutputValues() => throw new NotImplementedException();
+		public override EList<double> GetInputValues()  => throw new NotImplementedException();
+		public override EList<double> GetOutputValues() => throw new NotImplementedException();
 	}
 }

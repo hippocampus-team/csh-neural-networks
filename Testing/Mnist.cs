@@ -22,12 +22,20 @@ namespace Testing {
 			
 			Console.WriteLine("Training started!");
 			Console.Write("In progress");
-			Train();
+			Train(1);
 			Console.WriteLine(" Done.");
 
 			Console.WriteLine("Testing started!");
 			Console.Write("In progress");
-			Test();
+			NNsData testData = Test(1);
+			Console.WriteLine(" Done.");
+			
+			Console.Write("Writing data to excel... ");
+			WriteToExcel(testData);
+			Console.WriteLine(" Done.");
+			
+			Console.Write("Writing NNs configurations to files... ");
+			WriteNNsToFiles();
 			Console.WriteLine(" Done.");
 			
 			Console.WriteLine("Process is completed and result is saved in excel file.");
@@ -37,7 +45,7 @@ namespace Testing {
 		private static void SetupNNs() {
 			nns = new List<NeuralNetwork>();
 			for (int i = 0; i < 4; i++) {
-				NeuralNetwork nn = new NeuralNetwork(true);
+				NeuralNetwork nn = new NeuralNetwork();
 
 				nn.SetInputLength(784);
 				nn.AddDenceLayer(300);
@@ -50,7 +58,7 @@ namespace Testing {
 			}
 		}
 
-		private static void Train() {
+		private static void Train(int iterations) {
 			FileStream trainImages = new FileStream("data/train_imgs", FileMode.Open);
 			FileStream trainLabels = new FileStream("data/train_lbls", FileMode.Open);
 			trainImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -62,7 +70,7 @@ namespace Testing {
 			EList<double> input = new EList<double>();
 			for (int i = 0; i < 784; i++) input.Add(0);
 			
-			for (int h = 0; h < 15; h++) {
+			for (int h = 0; h < iterations; h++) {
 				for (int i = 0; i < 1000; i++) {
 					int digit = GetNextByte(trainLabels);
 				
@@ -79,12 +87,11 @@ namespace Testing {
 					foreach (NeuralNetwork nn in nns) nn.Backpropagate(answer, 1);
 					answer[digit] = 0.5;
 				}
-				
 				Console.Write(".");
 			}
 		}
 
-		private static void Test() {
+		private static NNsData Test(int iterations) {
 			FileStream testImages = new FileStream("data/test_imgs", FileMode.Open);
 			FileStream testLabels = new FileStream("data/test_lbls", FileMode.Open);
 			testImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -97,7 +104,7 @@ namespace Testing {
 			List<List<KeyValuePair<int, int>>> memory = 
 				nns.Select(nn => new List<KeyValuePair<int, int>>()).ToList();
 
-			for (int h = 0; h < 5; h++) {
+			for (int h = 0; h < iterations; h++) {
 				for (int i = 0; i < 1000; i++) {
 					int digit = GetNextByte(testLabels);
 
@@ -119,10 +126,8 @@ namespace Testing {
 				}
 				Console.Write(".");
 			}
-			Console.WriteLine(" Done.");
 			
-			Console.Write("Writing data to excel... ");
-			WriteToExcel(numOfGood, memory);
+			return new NNsData(numOfGood, memory);
 		}
 
 		private static int GetNextByte(Stream fileStream) {
@@ -131,9 +136,15 @@ namespace Testing {
 			return digit[0];
 		}
 
-		private static void WriteToExcel(List<int> numOfGood, List<List<KeyValuePair<int, int>>> memory) {
+		private static void WriteToExcel(NNsData data) {
+			string rootPath = $"./{experimentTitle}";
+			if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
+			
+			List<int> numOfGood = data.numOfGood;
+			List<List<KeyValuePair<int, int>>> memory = data.memory;
+			
 			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-			using ExcelPackage package = new ExcelPackage(new FileInfo("results.xlsx"));
+			using ExcelPackage package = new ExcelPackage(new FileInfo($"{rootPath}/test_results.xlsx"));
 			ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(experimentTitle);
 
 			for (int i = 0; i < nns.Count; i++) {
@@ -159,6 +170,24 @@ namespace Testing {
 			}
 			
 			package.Save();
+		}
+		
+		private static void WriteNNsToFiles() {
+			string rootPath = $"./{experimentTitle}";
+			if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
+			
+			for (int i = 0; i < nns.Count; i++)
+				File.WriteAllText($"{rootPath}/nn_{i}.json", nns[i].Serialize());
+		}
+	}
+
+	internal class NNsData {
+		public List<int> numOfGood { get; }
+		public List<List<KeyValuePair<int, int>>> memory { get; }
+
+		public NNsData(List<int> numOfGood, List<List<KeyValuePair<int, int>>> memory) {
+			this.numOfGood = numOfGood;
+			this.memory = memory;
 		}
 	}
 }

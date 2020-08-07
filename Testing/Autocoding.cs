@@ -7,7 +7,7 @@ namespace Testing {
 		private const int testNum = 128;
 
 		public static void Run() {
-			NeuralNetwork nn = new NeuralNetwork(true);
+			NeuralNetwork nn = new NeuralNetwork();
 
 			nn.SetInputLength(testNum);
 			nn.AddDenceLayer(16);

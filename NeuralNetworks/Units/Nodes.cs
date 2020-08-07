@@ -8,10 +8,7 @@ namespace NeuralNetworks.Units {
 
 		public Node(double value) {
 			this.value = value;
-			weights = new List<double>();
-			bias = 0;
 			derivative = 0;
-
 			inputUnits = new EList<Unit>();
 		}
 
@@ -24,12 +21,7 @@ namespace NeuralNetworks.Units {
 	public class ReferNode : Node {
 		public ReferNode(Unit inputUnit) {
 			value = inputUnit.value;
-			weights = new List<double>();
-			bias = 0;
 			derivative = 0;
-
-			weights.Add(1);
-
 			inputUnits = new EList<Unit> {inputUnit};
 		}
 
@@ -52,8 +44,6 @@ namespace NeuralNetworks.Units {
 
 		public PoolingNode(EList<Unit> inputUnits, PoolingMethod method) {
 			value = 0;
-			weights = new List<double>();
-			bias = 0;
 			derivative = 0;
 
 			this.method = method;
