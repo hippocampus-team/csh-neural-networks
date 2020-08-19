@@ -3,64 +3,65 @@ using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 
 namespace NeuralNetworks.Layers {
-	public class PoolingLayer : Layer {
-		private MatrixModel model { get; }
-		private Filter mask { get; }
 
-		public override EList<Unit> input { get; }
-		public override EList<Unit> output { get; }
+public class PoolingLayer : Layer {
+	private MatrixModel model { get; }
+	private Filter mask { get; }
 
-		public PoolingLayer(Layer inputLayer, Filter mask, int stride, PoolingNode.PoolingMethod method) {
-			model = new MatrixModel(inputLayer.output, stride);
-			this.mask = mask;
+	public override EList<Unit> input { get; }
+	public override EList<Unit> output { get; }
 
-			EList<Unit> nodes = new EList<Unit>(inputLayer.output.columns);
+	public PoolingLayer(Layer inputLayer, Filter mask, int stride, PoolingNode.PoolingMethod method) {
+		model = new MatrixModel(inputLayer.output, stride);
+		this.mask = mask;
 
-			for (int c = 0; c < inputLayer.output.columns; c++)
-			for (int i = 0; i < model.FilterOutputsCount(mask); i++) {
-				EList<Unit> inputUnits = new EList<Unit>();
+		EList<Unit> nodes = new EList<Unit>(inputLayer.output.columns);
 
-				for (int x = 0; x < mask.Count(); x++) {
-					int inner = x % mask.size + x / this.mask.size * model.size;
-					int outer = i % model.FilterLineCount(this.mask) +
-						i / model.FilterLineCount(this.mask) * model.size;
+		for (int c = 0; c < inputLayer.output.columns; c++)
+		for (int i = 0; i < model.filterOutputsCount(mask); i++) {
+			EList<Unit> inputUnits = new EList<Unit>();
 
-					inputUnits.Add(inputLayer.output[inner + outer, c]);
-				}
+			for (int x = 0; x < mask.count; x++) {
+				int inner = x % mask.size + x / this.mask.size * model.size;
+				int outer = i % model.filterLineCount(this.mask) + i / model.filterLineCount(this.mask) * model.size;
 
-				nodes.Add(new PoolingNode(inputUnits, method));
+				inputUnits.Add(inputLayer.output[inner + outer, c]);
 			}
 
-			input = nodes;
-			output = nodes;
+			nodes.Add(new PoolingNode(inputUnits, method));
 		}
 
-		public override void Count() {
-			foreach (Unit unit in output)
-				unit.Count();
-		}
-
-		public override void CountDerivatives() {
-			double part = 1d / mask.Count();
-
-			foreach (Unit node in input)
-			foreach (Unit inputLayerUnit in node.inputUnits)
-				inputLayerUnit.derivative += part * node.derivative;
-		}
-
-		public override void CountDerivatives(EList<double> expectedOutput) {
-			for (int r = 0; r < output.rows; r++)
-			for (int c = 0; c < output.columns; c++)
-				output[r, c].derivative = expectedOutput[r, c] - output[r, c].value;
-		}
-
-		public override EList<double> GetInputValues() => throw new NotImplementedException();
-
-		public override EList<double> GetOutputValues() => throw new NotImplementedException();
-
-		public override void FillWeightsRandom()                              { }
-		public override void FillBiasesRandom()                               { }
-		public override void ApplyDerivativesToWeights(double learningFactor) { }
-		public override void ApplyDerivativesToBiases(double learningFactor)  { }
+		input = nodes;
+		output = nodes;
 	}
+
+	public override void count() {
+		foreach (Unit unit in output)
+			unit.count();
+	}
+
+	public override void countDerivatives() {
+		double part = 1d / mask.count;
+
+		foreach (Unit node in input)
+		foreach (Unit inputLayerUnit in node.inputUnits)
+			inputLayerUnit.derivative += part * node.derivative;
+	}
+
+	public override void countDerivatives(EList<double> expectedOutput) {
+		for (int r = 0; r < output.rows; r++)
+		for (int c = 0; c < output.columns; c++)
+			output[r, c].derivative = expectedOutput[r, c] - output[r, c].value;
+	}
+
+	public override EList<double> getInputValues() => throw new NotImplementedException();
+
+	public override EList<double> getOutputValues() => throw new NotImplementedException();
+
+	public override void fillWeightsRandom() { }
+	public override void fillBiasesRandom() { }
+	public override void applyDerivativesToWeights(double learningFactor) { }
+	public override void applyDerivativesToBiases(double learningFactor) { }
+}
+
 }

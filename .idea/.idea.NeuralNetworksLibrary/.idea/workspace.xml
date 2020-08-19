@@ -20,20 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4889fbc4-e7ca-447c-b76a-48d13d6a099d" name="Default Changelist" comment="Code fully refreshed">
-      <change afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Constants.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworks.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworks.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Autocoding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Autocoding.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Entery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Entery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Mnist.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Mnist.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,24 +49,23 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Testing/Entery.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Testing/Mnist.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Autocoding.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Testing/Autocoding.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Lenovo1/Desktop/NeuralNetworksLibrary/NeuralNetworks/Layers/ConvolutionalLayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Testing/Mnist.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Testing/Entery.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Constants.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Mnist.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Constants.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -70,24 +73,24 @@
         <option value="$PROJECT_DIR$/NeuralNetworks/Class1.cs" />
         <option value="$PROJECT_DIR$/Tests/Program.cs" />
         <option value="$PROJECT_DIR$/Testing/Program.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Constants.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" />
         <option value="$PROJECT_DIR$/Testing/Main.cs" />
         <option value="$PROJECT_DIR$/Testing/Entery.cs" />
         <option value="$PROJECT_DIR$/Testing/Autocoding.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" />
         <option value="$PROJECT_DIR$/Testing/Mnist.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Constants.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" />
       </list>
     </option>
   </component>
@@ -105,7 +108,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
+    <property name="settings.editor.selected.configurable" value="CodeCleanupOptionsPage" />
   </component>
   <component name="RunManager">
     <configuration name="Tests" type="DotNetProject" factoryName=".NET Project">
@@ -127,6 +130,7 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -140,6 +144,8 @@
       <workItem from="1596624239569" duration="6035000" />
       <workItem from="1596701334232" duration="29839000" />
       <workItem from="1596778390229" duration="28245000" />
+      <workItem from="1597824263353" duration="2404000" />
+      <workItem from="1597856338711" duration="2467000" />
     </task>
     <task id="LOCAL-00001" summary="Transformed to .NET Core">
       <created>1596702333037</created>
@@ -172,6 +178,8 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -197,10 +205,11 @@
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
     <state x="-1052" y="-257" key="#xdebugger.XInspectDialog/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596626609120" />
-    <state x="-1206" y="-144" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1596715159518">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
+    <state x="-1206" y="247" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1597856979617">
+      <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state x="-1206" y="-144" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596715159518" />
+    <state x="-1206" y="247" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597856979617" />
     <state width="412" height="464" key="DebuggerActiveHint" timestamp="1596721489004">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
@@ -297,10 +306,12 @@
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
     <state x="-1159" y="-306" key="RiderGenerateDialog/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596814656990" />
-    <state x="-1850" y="-517" width="1815" height="1047" key="SettingsEditor" timestamp="1596715137548">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
+    <state x="-1850" y="-126" width="1781" height="1016" key="SettingsEditor" timestamp="1597857160789">
+      <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state x="-1850" y="-517" width="1815" height="1047" key="SettingsEditor/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596715137548" />
+    <state x="-1850" y="-126" key="SettingsEditor/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597857160789" />
+    <state x="70" y="33" width="1781" height="1016" key="SettingsEditor/0.0.1920.1080/-1920.-159.1920.1080@0.0.1920.1080" timestamp="1597826076582" />
     <state x="-1368" y="-278" key="Vcs.Push.Dialog.v2" timestamp="1596779563066">
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
@@ -318,8 +329,7 @@
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
-        <PinnedItemInfo typeName="NeuralNetworks.Node" fieldName="Value" />
-        <PinnedItemInfo typeName="NeuralNetworks.Neuron" fieldName="Value" />
+        <PinnedItemInfo />
       </pinned-members>
     </pin-to-top-manager>
     <watches-manager>

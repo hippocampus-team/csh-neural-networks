@@ -1,86 +1,88 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using NeuralNetworks.Misc;
 
 namespace NeuralNetworks.Units {
-	public class Node : Unit {
-		public Node() : this(0) { }
 
-		public Node(double value) {
-			this.value = value;
-			derivative = 0;
-			inputUnits = new EList<Unit>();
-		}
+public class Node : Unit {
+	public Node() : this(0) { }
 
-		public override void Count()                                          { }
-		public override void CountDerivatives()                               { }
-		public override void ApplyDerivativesToWeights(double learningFactor) { }
-		public override void ApplyDerivativesToBias(double learningFactor)    { }
+	public Node(double value) {
+		this.value = value;
+		derivative = 0;
+		inputUnits = new EList<Unit>();
 	}
 
-	public class ReferNode : Node {
-		public ReferNode(Unit inputUnit) {
-			value = inputUnit.value;
-			derivative = 0;
-			inputUnits = new EList<Unit> {inputUnit};
-		}
+	public override void count() { }
+	public override void countDerivatives() { }
+	public override void applyDerivativesToWeights(double learningFactor) { }
+	public override void applyDerivativesToBias(double learningFactor) { }
+}
 
-		public override void Count() => value = inputUnits[0].value;
-
-		public override void CountDerivatives() =>
-			inputUnits[0].derivative = derivative;
+public class ReferNode : Node {
+	public ReferNode(Unit inputUnit) {
+		value = inputUnit.value;
+		derivative = 0;
+		inputUnits = new EList<Unit> {inputUnit};
 	}
 
-	public class PoolingNode : Node {
-		public enum PoolingMethod {
-			Average,
-			Max,
-			Min
-		}
+	public override void count() => value = inputUnits[0].value;
 
-		private PoolingMethod method { get; }
+	public override void countDerivatives() => inputUnits[0].derivative = derivative;
+}
 
-		public PoolingNode(EList<Unit> inputUnits) : this(inputUnits, 0) { }
+public class PoolingNode : Node {
+	public enum PoolingMethod {
+		average,
+		max,
+		min
+	}
 
-		public PoolingNode(EList<Unit> inputUnits, PoolingMethod method) {
-			value = 0;
-			derivative = 0;
+	private PoolingMethod method { get; }
 
-			this.method = method;
+	public PoolingNode(EList<Unit> inputUnits) : this(inputUnits, 0) { }
 
-			this.inputUnits = inputUnits;
-		}
+	public PoolingNode(EList<Unit> inputUnits, PoolingMethod method) {
+		value = 0;
+		derivative = 0;
 
-		public override void Count() {
-			switch (method) {
-				case PoolingMethod.Average:
-					double average = inputUnits.Sum(unit => unit.value);
+		this.method = method;
 
-					value = average / inputUnits.Count;
-					break;
+		this.inputUnits = inputUnits;
+	}
 
-				case PoolingMethod.Max:
-					double max = inputUnits[0].value;
+	public override void count() {
+		switch (method) {
+			case PoolingMethod.average:
+				double average = inputUnits.Sum(unit => unit.value);
 
-					for (int i = 1; i < inputUnits.Count; i++)
-						if (inputUnits[i].value > max)
-							max = inputUnits[i].value;
+				value = average / inputUnits.Count;
+				break;
 
-					value = max;
-					break;
+			case PoolingMethod.max:
+				double max = inputUnits[0].value;
 
-				case PoolingMethod.Min:
-					double min = inputUnits[0].value;
+				for (int i = 1; i < inputUnits.Count; i++) {
+					if (inputUnits[i].value > max)
+						max = inputUnits[i].value;
+				}
 
-					for (int i = 1; i < inputUnits.Count; i++)
-						if (inputUnits[i].value < min)
-							min = inputUnits[i].value;
+				value = max;
+				break;
 
-					value = min;
-					break;
-			}
+			case PoolingMethod.min:
+				double min = inputUnits[0].value;
+
+				for (int i = 1; i < inputUnits.Count; i++) {
+					if (inputUnits[i].value < min)
+						min = inputUnits[i].value;
+				}
+
+				value = min;
+				break;
 		}
 	}
+}
+
 }
 
 // public class ArrayReferNode : Node {

@@ -3,43 +3,43 @@ using System.Collections.Generic;
 using NeuralNetworks.Units;
 
 namespace NeuralNetworks.Misc {
-	public class MatrixModel {
-		public int size { get; }
-		public int stride { get; }
 
-		public MatrixModel(int size, int stride) {
-			this.size = size;
-			this.stride = stride;
-		}
+public class MatrixModel {
+	public int size { get; }
+	public int stride { get; }
+	public int count => size * size;
 
-		public MatrixModel(EList<Unit> layer, int stride) : this(layer.columns, stride) { }
-
-		public int Count() => size * size;
-
-		public int FilterOutputsCount(Filter filter) => (int) Math.Pow((size - filter.size) / stride + 1, 2);
-
-		public int FilterLineCount(Filter filter) => (size - filter.size) / stride + 1;
+	public MatrixModel(int size, int stride) {
+		this.size = size;
+		this.stride = stride;
 	}
 
-	public class Filter : ICloneable {
-		public int size { get; }
-		public List<double> values { get; }
+	public MatrixModel(EList<Unit> layer, int stride) : this(layer.columns, stride) { }
 
-		public Filter(int size) {
-			this.size = size;
-			values = new List<double>();
+	public int filterOutputsCount(Filter filter) => (int) Math.Pow((size - filter.size) / stride + 1, 2);
 
-			for (int i = 0; i < size * size; i++)
-				values.Add(0);
-		}
+	public int filterLineCount(Filter filter) => (size - filter.size) / stride + 1;
+}
 
-		public Filter(List<double> values) {
-			size = (int) Math.Sqrt(values.Count);
-			this.values = values;
-		}
+public class Filter : ICloneable {
+	public int size { get; }
+	public List<double> values { get; }
+	public int count => size * size;
 
-		public object Clone() => new Filter(values);
+	public Filter(int size) {
+		this.size = size;
+		values = new List<double>();
 
-		public int Count() => size * size;
+		for (int i = 0; i < size * size; i++)
+			values.Add(0);
 	}
+
+	public Filter(List<double> values) {
+		size = (int) Math.Sqrt(values.Count);
+		this.values = values;
+	}
+
+	public object Clone() => new Filter(values);
+}
+
 }
