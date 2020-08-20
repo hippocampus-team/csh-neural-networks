@@ -7,11 +7,11 @@ public class EList<T> : IList<T> {
 	private readonly List<T> array;
 
 	public T this[int row, int column] {
-		get => array[column * array.Count + row];
-		set => array[column * array.Count + row] = value;
+		get => array[column * rows + row];
+		set => array[column * rows + row] = value;
 	}
 
-	public int rows => array.Count;
+	public int rows => array.Count / columns;
 	public int columns { get; }
 
 	public EList() : this(1) { }

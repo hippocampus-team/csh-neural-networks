@@ -14,11 +14,14 @@ public class MatrixModel {
 		this.stride = stride;
 	}
 
-	public MatrixModel(EList<Unit> layer, int stride) : this(layer.columns, stride) { }
+	public MatrixModel(EList<Unit> layer, int stride) 
+		: this((int) Math.Floor(Math.Sqrt(layer.rows)), stride) { }
 
-	public int filterOutputsCount(Filter filter) => (int) Math.Pow((size - filter.size) / stride + 1, 2);
+	public int filterOutputsCount(Filter filter) 
+		=> (int) Math.Pow((size - filter.size) / stride + 1, 2);
 
-	public int filterLineCount(Filter filter) => (size - filter.size) / stride + 1;
+	public int filterLineCount(Filter filter) 
+		=> (size - filter.size) / stride + 1;
 }
 
 public class Filter : ICloneable {

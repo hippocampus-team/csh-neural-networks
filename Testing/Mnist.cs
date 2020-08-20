@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using NeuralNetworks;
 using NeuralNetworks.Misc;
+using NeuralNetworks.Units;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
@@ -13,44 +14,52 @@ internal static class Mnist {
 	private static string experimentTitle;
 	private static List<NeuralNetwork> nns;
 
-	public static void Run() {
+	public static void run() {
 		Console.Write("Hello. Enter experiment title: ");
 		experimentTitle = Console.ReadLine();
 
 		Console.Write("Initialisation of NNs...");
-		SetupNNs();
+		setupNNs();
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Training started!");
 		Console.Write("In progress");
-		Train(1);
+		train(15);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData testData = Test(1);
+		NNsData testData = test(5);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing data to excel... ");
-		WriteToExcel(testData);
+		writeToExcel(testData);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing NNs configurations to files... ");
-		WriteNNsToFiles();
+		writeNNsToFiles();
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Process is completed and result is saved in excel file.");
 		Console.ReadKey();
 	}
 
-	private static void SetupNNs() {
+	private static void setupNNs() {
 		nns = new List<NeuralNetwork>();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 8; i++) {
 			NeuralNetwork nn = new NeuralNetwork();
 
 			nn.setInputLength(784);
 			nn.addDenceLayer(300);
 			nn.addDenceLayer(10);
+			
+			// nn.setInputLength(784);
+			// nn.addPoolingLayer(new Filter(2), 2, PoolingNode.PoolingMethod.average);
+			// nn.addConvolutionalLayer(new Filter(5), 16, 1);
+			// nn.addPoolingLayer(new Filter(2), 2, PoolingNode.PoolingMethod.average);
+			// nn.addDenceLayer(120);
+			// nn.addDenceLayer(84);
+			// nn.addDenceLayer(10);
 
 			nn.fillRandomWeights();
 			nn.fillRandomBiases();
@@ -59,7 +68,7 @@ internal static class Mnist {
 		}
 	}
 
-	private static void Train(int iterations) {
+	private static void train(int iterations) {
 		FileStream trainImages = new FileStream("data/train_imgs", FileMode.Open);
 		FileStream trainLabels = new FileStream("data/train_lbls", FileMode.Open);
 		trainImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -73,7 +82,7 @@ internal static class Mnist {
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
-				int digit = GetNextByte(trainLabels);
+				int digit = getNextByte(trainLabels);
 
 				byte[] byteInput = new byte[784];
 				trainImages.Read(byteInput, 0, 784);
@@ -86,13 +95,13 @@ internal static class Mnist {
 
 				answer[digit] = 1;
 				foreach (NeuralNetwork nn in nns) nn.backpropagate(answer, 1);
-				answer[digit] = 0.5;
+				answer[digit] = 0.4;
 			}
 			Console.Write(".");
 		}
 	}
 
-	private static NNsData Test(int iterations) {
+	private static NNsData test(int iterations) {
 		FileStream testImages = new FileStream("data/test_imgs", FileMode.Open);
 		FileStream testLabels = new FileStream("data/test_lbls", FileMode.Open);
 		testImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -106,7 +115,7 @@ internal static class Mnist {
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
-				int digit = GetNextByte(testLabels);
+				int digit = getNextByte(testLabels);
 
 				byte[] byteInput = new byte[784];
 				testImages.Read(byteInput, 0, 784);
@@ -130,13 +139,13 @@ internal static class Mnist {
 		return new NNsData(numOfGood, memory);
 	}
 
-	private static int GetNextByte(Stream fileStream) {
+	private static int getNextByte(Stream fileStream) {
 		byte[] digit = new byte[1];
 		fileStream.Read(digit, 0, 1);
 		return digit[0];
 	}
 
-	private static void WriteToExcel(NNsData data) {
+	private static void writeToExcel(NNsData data) {
 		string rootPath = $"./{experimentTitle}";
 		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
 
@@ -160,10 +169,10 @@ internal static class Mnist {
 			worksheet.Cells[3, currentColumn + 1].Value = numOfGood[i] * 1d / memory[i].Count;
 
 			for (int index = 0; index < memory[i].Count; index++) {
-				KeyValuePair<int, int> pair = memory[i][index];
+				(int key, int value) = memory[i][index];
 
-				worksheet.Cells[4 + index, currentColumn].Value = pair.Key;
-				worksheet.Cells[4 + index, currentColumn + 1].Value = pair.Value;
+				worksheet.Cells[4 + index, currentColumn].Value = key;
+				worksheet.Cells[4 + index, currentColumn + 1].Value = value;
 			}
 
 			worksheet.Column(currentColumn + 1).Style.Border.Right.Style = ExcelBorderStyle.Thin;
@@ -172,7 +181,7 @@ internal static class Mnist {
 		package.Save();
 	}
 
-	private static void WriteNNsToFiles() {
+	private static void writeNNsToFiles() {
 		string rootPath = $"./{experimentTitle}";
 		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
 

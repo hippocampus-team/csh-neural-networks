@@ -22,8 +22,8 @@ public class PoolingLayer : Layer {
 			EList<Unit> inputUnits = new EList<Unit>();
 
 			for (int x = 0; x < mask.count; x++) {
-				int inner = x % mask.size + x / this.mask.size * model.size;
-				int outer = i % model.filterLineCount(this.mask) + i / model.filterLineCount(this.mask) * model.size;
+				int inner = x % mask.size + x / mask.size * model.size;
+				int outer = i % model.filterLineCount(mask) + i / model.filterLineCount(mask) * model.size;
 
 				inputUnits.Add(inputLayer.output[inner + outer, c]);
 			}

@@ -1,7 +1,8 @@
 ﻿namespace Testing {
 
 internal static class Entery {
-	private static void Main(string[] args) => Mnist.Run();
+	// ReSharper disable once InconsistentNaming
+	private static void Main(string[] args) => Mnist.run();
 }
 
 }

@@ -4,9 +4,11 @@ namespace NeuralNetworks.Misc {
 
 public static class MathTools {
 	public static double sigmoid(double value) {
+		if (value < -50.0) return 0.0;
+		if (value > 50.0) return 1.0;
+
 		double k = Math.Exp(value);
-		double d = k / (1.0f + k);
-		return d;
+		return k / (1.0d + k);
 	}
 
 	public static double sigmoidDerivative(double value) => value * (1 - value);

@@ -64,23 +64,23 @@ public class ConvolutionalNeuron : Neuron {
 
 	public override void count() {
 		double weightedSum = 0;
-
-		for (int r = 0; r < inputUnits.rows; r++)
-			weightedSum += inputUnits[r, column].value * filter.values[indexes[r]];
+		
+		for (int i = 0; i < filter.values.Count; i++)
+			weightedSum += inputUnits[indexes[i], column].value * filter.values[i];
 
 		value = MathTools.sigmoid(weightedSum + bias);
 	}
 
 	public override void countDerivatives() {
-		for (int r = 0; r < inputUnits.rows; r++) {
-			inputUnits[r, column].derivative +=
-				derivative * MathTools.sigmoidDerivative(value) * filter.values[indexes[r]];
+		for (int i = 0; i < filter.values.Count; i++) {
+			inputUnits[indexes[i], column].derivative +=
+				derivative * MathTools.sigmoidDerivative(value) * filter.values[i];
 		}
 	}
 
 	public override void applyDerivativesToWeights(double learningFactor) {
-		for (int w = 0; w < weights.Count; w++) {
-			filter.values[indexes[w]] += learningFactor * derivative * inputUnits[w, column].value *
+		for (int i = 0; i < filter.values.Count; i++) {
+			filter.values[i] += learningFactor * derivative * inputUnits[indexes[i], column].value *
 										 MathTools.sigmoidDerivative(value);
 		}
 	}

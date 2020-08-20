@@ -5,24 +5,24 @@ using NeuralNetworks.Misc;
 namespace Testing {
 
 internal static class Autocoding {
-	private const int testNum = 128;
+	private const int TEST_NUM = 128;
 
-	public static void Run() {
+	public static void run() {
 		NeuralNetwork nn = new NeuralNetwork();
 
-		nn.setInputLength(testNum);
+		nn.setInputLength(TEST_NUM);
 		nn.addDenceLayer(16);
-		nn.addDenceLayer(testNum);
+		nn.addDenceLayer(TEST_NUM);
 
 		nn.fillRandomWeights();
 		nn.fillRandomBiases();
 
 		Random random = new Random(Guid.NewGuid().GetHashCode());
 		EList<double> data = new EList<double>();
-		for (int i = 0; i < testNum; i++) data.Add(0);
+		for (int i = 0; i < TEST_NUM; i++) data.Add(0);
 
 		for (int i = 0; i < 1000; i++) {
-			for (int j = 0; j < testNum; j++) data[j] = Math.Round(random.NextDouble());
+			for (int j = 0; j < TEST_NUM; j++) data[j] = Math.Round(random.NextDouble());
 
 			nn.putData(data);
 			nn.run();
