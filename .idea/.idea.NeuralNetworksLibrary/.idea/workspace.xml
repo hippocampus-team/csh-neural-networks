@@ -19,15 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4889fbc4-e7ca-447c-b76a-48d13d6a099d" name="Default Changelist" comment="Slight refactoring and style changing">
+    <list default="true" id="4889fbc4-e7ca-447c-b76a-48d13d6a099d" name="Default Changelist" comment="Conv and Pooling Layers bug fix">
+      <change afterPath="$PROJECT_DIR$/NeuralNetworks/ActivationFunctions/ActivationFunction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetworksLibrary/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Autocoding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Autocoding.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testing/Entery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Entery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Testing/Mnist.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Mnist.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,13 +40,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/Lenovo1/Desktop/NeuralNetworksLibrary/Testing/Autocoding.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Testing/Autocoding.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Testing/Mnist.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Testing/Entery.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/52B82C28-59AD-42B4-A74A-A51A769C2E77/1E/Last.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Constants.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9CD23B5E-3B0C-4F80-A807-33BCFD1D82E1/2A/Math.cs" root0="SKIP_HIGHLIGHTING" />
@@ -65,7 +66,6 @@
         <option value="$PROJECT_DIR$/NeuralNetworks/Class1.cs" />
         <option value="$PROJECT_DIR$/Tests/Program.cs" />
         <option value="$PROJECT_DIR$/Testing/Program.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" />
         <option value="$PROJECT_DIR$/Testing/Main.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ILayer.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/SimpleLayer.cs" />
@@ -73,16 +73,18 @@
         <option value="$PROJECT_DIR$/NeuralNetworks/Units/Nodes.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Units/Base.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/Layer.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" />
         <option value="$PROJECT_DIR$/Testing/Entery.cs" />
-        <option value="$PROJECT_DIR$/Testing/Autocoding.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Misc/EList.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Misc/Dimentions.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Layers/PoolingLayer.cs" />
-        <option value="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" />
         <option value="$PROJECT_DIR$/NeuralNetworks/Misc/MathTools.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/ConvolutionalLayer.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Layers/DenceLayer.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.cs" />
+        <option value="$PROJECT_DIR$/Testing/Autocoding.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/ActivationFunctions/ActivationFunction.cs" />
         <option value="$PROJECT_DIR$/Testing/Mnist.cs" />
+        <option value="$PROJECT_DIR$/NeuralNetworks/Units/Neurons.cs" />
       </list>
     </option>
   </component>
@@ -139,7 +141,8 @@
       <workItem from="1597824263353" duration="2404000" />
       <workItem from="1597856338711" duration="7370000" />
       <workItem from="1597903742973" duration="11686000" />
-      <workItem from="1597938180883" duration="1209000" />
+      <workItem from="1597938180883" duration="1652000" />
+      <workItem from="1597991942071" duration="7608000" />
     </task>
     <task id="LOCAL-00001" summary="Transformed to .NET Core">
       <created>1596702333037</created>
@@ -176,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597859130331</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Conv and Pooling Layers bug fix">
+      <created>1597940856406</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1597940856406</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
@@ -200,7 +210,9 @@
     <MESSAGE value="Mnist test added" />
     <MESSAGE value="Excel logging added" />
     <MESSAGE value="Slight refactoring and style changing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Slight refactoring and style changing" />
+    <MESSAGE value="Conv and Pooling Layers bug fix" />
+    <MESSAGE value="Activation functions selection added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Activation functions selection added" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1052" y="-257" key="#xdebugger.XInspectDialog" timestamp="1596626609120">
@@ -217,26 +229,26 @@
     </state>
     <state width="412" height="464" key="DebuggerActiveHint/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596721489004" />
     <state width="792" height="952" key="DebuggerActiveHint/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597908548785" />
-    <state width="1876" height="290" key="GridCell.Tab.0.bottom" timestamp="1597920495792">
+    <state width="1876" height="290" key="GridCell.Tab.0.bottom" timestamp="1598002333937">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state width="1878" height="175" key="GridCell.Tab.0.bottom/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596816290321" />
-    <state width="1876" height="290" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597920495792" />
-    <state width="1876" height="290" key="GridCell.Tab.0.center" timestamp="1597920495792">
+    <state width="1876" height="290" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1598002333937" />
+    <state width="1876" height="290" key="GridCell.Tab.0.center" timestamp="1598002333936">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state width="1878" height="175" key="GridCell.Tab.0.center/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596816290320" />
-    <state width="1876" height="290" key="GridCell.Tab.0.center/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597920495792" />
-    <state width="1876" height="290" key="GridCell.Tab.0.left" timestamp="1597920495792">
+    <state width="1876" height="290" key="GridCell.Tab.0.center/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1598002333936" />
+    <state width="1876" height="290" key="GridCell.Tab.0.left" timestamp="1598002333936">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state width="1878" height="175" key="GridCell.Tab.0.left/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596816290320" />
-    <state width="1876" height="290" key="GridCell.Tab.0.left/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597920495792" />
-    <state width="1876" height="290" key="GridCell.Tab.0.right" timestamp="1597920495792">
+    <state width="1876" height="290" key="GridCell.Tab.0.left/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1598002333936" />
+    <state width="1876" height="290" key="GridCell.Tab.0.right" timestamp="1598002333937">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state width="1878" height="175" key="GridCell.Tab.0.right/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596816290321" />
-    <state width="1876" height="290" key="GridCell.Tab.0.right/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597920495792" />
+    <state width="1876" height="290" key="GridCell.Tab.0.right/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1598002333937" />
     <state width="1876" height="367" key="GridCell.Tab.1.bottom" timestamp="1597920493183">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
@@ -325,10 +337,11 @@
       <screen x="-1920" y="-550" width="1920" height="1080" />
     </state>
     <state x="-1368" y="-279" key="Rider.ProjectTemplateDialog.Size/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596624337789" />
-    <state x="-1159" y="-306" key="RiderGenerateDialog" timestamp="1596814656990">
-      <screen x="-1920" y="-550" width="1920" height="1080" />
+    <state x="-1159" y="85" key="RiderGenerateDialog" timestamp="1597999470965">
+      <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state x="-1159" y="-306" key="RiderGenerateDialog/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596814656990" />
+    <state x="-1159" y="85" key="RiderGenerateDialog/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597999470965" />
     <state x="-1180" y="90" key="RollbackChangesDialog" timestamp="1597859637829">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
@@ -339,11 +352,11 @@
     <state x="-1850" y="-517" width="1815" height="1047" key="SettingsEditor/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596715137548" />
     <state x="-1850" y="-126" key="SettingsEditor/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597857160789" />
     <state x="70" y="33" width="1781" height="1016" key="SettingsEditor/0.0.1920.1080/-1920.-159.1920.1080@0.0.1920.1080" timestamp="1597826076582" />
-    <state x="-1368" y="113" key="Vcs.Push.Dialog.v2" timestamp="1597859226326">
+    <state x="-1368" y="113" key="Vcs.Push.Dialog.v2" timestamp="1597940862517">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>
     <state x="-1368" y="-278" key="Vcs.Push.Dialog.v2/0.0.1366.728/-1920.-550.1920.1080@-1920.-550.1920.1080" timestamp="1596779563066" />
-    <state x="-1368" y="113" key="Vcs.Push.Dialog.v2/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597859226326" />
+    <state x="-1368" y="113" key="Vcs.Push.Dialog.v2/0.0.1920.1080/-1920.-159.1920.1080@-1920.-159.1920.1080" timestamp="1597940862517" />
     <state x="-1384" y="110" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1597906746526">
       <screen x="-1920" y="-159" width="1920" height="1080" />
     </state>

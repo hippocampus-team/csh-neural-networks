@@ -5,6 +5,9 @@
     <e p="C:\Users\Lenovo1\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_NeuralNetworksLibrary.-1582787275.00" t="ExcludeRecursive" />
     <e p="C:\Users\Lenovo1\Desktop\NeuralNetworksLibrary" t="IncludeFlat">
       <e p="NeuralNetworks" t="IncludeRecursive">
+        <e p="ActivationFunctions" t="Include">
+          <e p="ActivationFunction.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Constants.cs" t="Include" />
         <e p="Layers" t="Include">
@@ -17,7 +20,6 @@
         <e p="Misc" t="Include">
           <e p="Dimentions.cs" t="Include" />
           <e p="EList.cs" t="Include" />
-          <e p="MathTools.cs" t="Include" />
         </e>
         <e p="NeuralNetwork.cs" t="Include" />
         <e p="NeuralNetworks.csproj" t="IncludeRecursive" />

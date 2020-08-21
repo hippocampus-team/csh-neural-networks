@@ -1,4 +1,5 @@
 ﻿using System;
+using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 
@@ -8,11 +9,11 @@ public class DenceLayer : Layer {
 	public override EList<Unit> input { get; }
 	public override EList<Unit> output { get; }
 
-	public DenceLayer(int n, Layer inputLayer) {
+	public DenceLayer(int n, Layer inputLayer, ActivationFunction activationFunction) {
 		EList<Unit> neurons = new EList<Unit>();
 
 		for (int i = 0; i < n; i++)
-			neurons.Add(new Neuron(inputLayer.output));
+			neurons.Add(new Neuron(inputLayer.output, activationFunction));
 
 		input = neurons;
 		output = neurons;

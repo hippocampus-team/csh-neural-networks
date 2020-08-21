@@ -1,5 +1,6 @@
 ﻿using System;
 using NeuralNetworks;
+using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 
 namespace Testing {
@@ -11,8 +12,8 @@ internal static class Autocoding {
 		NeuralNetwork nn = new NeuralNetwork();
 
 		nn.setInputLength(TEST_NUM);
-		nn.addDenceLayer(16);
-		nn.addDenceLayer(TEST_NUM);
+		nn.addDenceLayer(16, new Sigmoid());
+		nn.addDenceLayer(TEST_NUM, new Sigmoid());
 
 		nn.fillRandomWeights();
 		nn.fillRandomBiases();

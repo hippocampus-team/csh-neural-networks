@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 
@@ -12,7 +13,8 @@ public class ConvolutionalLayer : Layer {
 	public override EList<Unit> input { get; }
 	public override EList<Unit> output { get; }
 
-	public ConvolutionalLayer(Layer inputLayer, Filter filter, int filtersAmount, int stride) {
+	public ConvolutionalLayer(Layer inputLayer, Filter filter, int filtersAmount, int stride, 
+							  ActivationFunction activationFunction) {
 		kernels = new List<List<Filter>>();
 		model = new MatrixModel(inputLayer.output, stride);
 
@@ -37,7 +39,7 @@ public class ConvolutionalLayer : Layer {
 				indexes.Add(inner + outer);
 			}
 
-			neurons.Add(new ConvolutionalNeuron(inputLayer.output, kernels[f][c], indexes, c));
+			neurons.Add(new ConvolutionalNeuron(inputLayer.output, kernels[f][c], indexes, c, activationFunction));
 		}
 
 		input = neurons;

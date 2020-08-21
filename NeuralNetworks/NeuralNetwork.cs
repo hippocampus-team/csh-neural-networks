@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Layers;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
@@ -78,19 +79,19 @@ public class NeuralNetwork {
 		setUnitIdsForLastLayer();
 	}
 
-	public void addDenceLayer(int length) {
+	public void addDenceLayer(int length, ActivationFunction activationFunction) {
 		if (layers.Count == 0)
 			throw new Exception("Dence layer can not be first one");
 
-		layers.Add(new DenceLayer(length, layers.Last()));
+		layers.Add(new DenceLayer(length, layers.Last(), activationFunction));
 		setUnitIdsForLastLayer();
 	}
 
-	public void addConvolutionalLayer(Filter filter, int filtersAmount, int stride) {
+	public void addConvolutionalLayer(Filter filter, int filtersAmount, int stride, ActivationFunction activationFunction) {
 		if (layers.Count == 0)
 			throw new Exception("Convolutional layer can not be first one");
 
-		layers.Add(new ConvolutionalLayer(layers.Last(), filter, filtersAmount, stride));
+		layers.Add(new ConvolutionalLayer(layers.Last(), filter, filtersAmount, stride, activationFunction));
 		setUnitIdsForLastLayer();
 	}
 

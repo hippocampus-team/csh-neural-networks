@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 using Newtonsoft.Json.Linq;
 
@@ -8,34 +9,38 @@ namespace NeuralNetworks.Units {
 public class Neuron : Unit {
 	public List<double> weights { get; }
 	public double bias { get; set; }
+	protected ActivationFunction activationFunction { get; }
 
-	public Neuron(EList<Unit> inputUnits) {
+	public Neuron(EList<Unit> inputUnits, ActivationFunction activationFunction) {
 		value = 0;
 		weights = new List<double>();
 		this.inputUnits = inputUnits;
 		bias = Constants.DEFAULT_BIAS;
+		this.activationFunction = activationFunction;
 
 		for (int i = 0; i < inputUnits.Count; i++)
 			weights.Add(1);
 	}
 
 	public override void count() {
-		double weightedSum = inputUnits.Select((unit, i) => unit.value * weights[i]).Sum();
-		value = MathTools.sigmoid(weightedSum + bias);
+		double weightedSum = 0;
+		for (int i = 0; i < inputUnits.Count; i++)
+			weightedSum += inputUnits[i].value * weights[i];
+		value = activationFunction.count(weightedSum + bias);
 	}
 
 	public override void countDerivatives() {
 		for (int i = 0; i < inputUnits.Count; i++)
-			inputUnits[i].derivative += derivative * MathTools.sigmoidDerivative(value) * weights[i];
+			inputUnits[i].derivative += derivative * activationFunction.countDerivative(value) * weights[i];
 	}
 
 	public override void applyDerivativesToWeights(double learningFactor) {
 		for (int i = 0; i < weights.Count; i++)
-			weights[i] += derivative * inputUnits[i].value * MathTools.sigmoidDerivative(value) * learningFactor;
+			weights[i] += derivative * inputUnits[i].value * activationFunction.countDerivative(value) * learningFactor;
 	}
 
 	public override void applyDerivativesToBias(double learningFactor) =>
-		bias += derivative * MathTools.sigmoidDerivative(value) * learningFactor;
+		bias += derivative * activationFunction.countDerivative(value) * learningFactor;
 
 	public override JObject toJObject() {
 		JObject unit = base.toJObject();
@@ -55,8 +60,9 @@ public class ConvolutionalNeuron : Neuron {
 	private List<int> indexes { get; }
 	private int column { get; }
 
-	public ConvolutionalNeuron(EList<Unit> inputUnits, Filter filter, List<int> indexes, int column) :
-		base(inputUnits) {
+	public ConvolutionalNeuron(EList<Unit> inputUnits, Filter filter, List<int> indexes, int column, 
+							   ActivationFunction activationFunction) :
+		base(inputUnits, activationFunction) {
 		this.filter = filter;
 		this.indexes = indexes;
 		this.column = column;
@@ -68,20 +74,20 @@ public class ConvolutionalNeuron : Neuron {
 		for (int i = 0; i < filter.values.Count; i++)
 			weightedSum += inputUnits[indexes[i], column].value * filter.values[i];
 
-		value = MathTools.sigmoid(weightedSum + bias);
+		value = activationFunction.count(weightedSum + bias);
 	}
 
 	public override void countDerivatives() {
 		for (int i = 0; i < filter.values.Count; i++) {
 			inputUnits[indexes[i], column].derivative +=
-				derivative * MathTools.sigmoidDerivative(value) * filter.values[i];
+				derivative * activationFunction.countDerivative(value) * filter.values[i];
 		}
 	}
 
 	public override void applyDerivativesToWeights(double learningFactor) {
 		for (int i = 0; i < filter.values.Count; i++) {
-			filter.values[i] += learningFactor * derivative * inputUnits[indexes[i], column].value *
-										 MathTools.sigmoidDerivative(value);
+			filter.values[i] += learningFactor * derivative * inputUnits[indexes[i], column].value 
+								* activationFunction.countDerivative(value);
 		}
 	}
 }

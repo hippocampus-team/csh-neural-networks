@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NeuralNetworks;
+using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 using OfficeOpenXml;
@@ -11,12 +12,14 @@ using OfficeOpenXml.Style;
 namespace Testing {
 
 internal static class Mnist {
+	private static string rootPath;
 	private static string experimentTitle;
 	private static List<NeuralNetwork> nns;
 
 	public static void run() {
 		Console.Write("Hello. Enter experiment title: ");
 		experimentTitle = Console.ReadLine();
+		rootPath = $"./results/{experimentTitle}";
 
 		Console.Write("Initialisation of NNs...");
 		setupNNs();
@@ -24,12 +27,12 @@ internal static class Mnist {
 
 		Console.WriteLine("Training started!");
 		Console.Write("In progress");
-		train(15);
+		train(8);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData testData = test(5);
+		NNsData testData = test(2);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing data to excel... ");
@@ -46,13 +49,14 @@ internal static class Mnist {
 
 	private static void setupNNs() {
 		nns = new List<NeuralNetwork>();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			NeuralNetwork nn = new NeuralNetwork();
 
 			nn.setInputLength(784);
-			nn.addDenceLayer(300);
-			nn.addDenceLayer(10);
+			nn.addDenceLayer(300, new ModifiedSigmoid());
+			nn.addDenceLayer(10, new ModifiedSigmoid());
 			
+			///// LeNet-5 ? 
 			// nn.setInputLength(784);
 			// nn.addPoolingLayer(new Filter(2), 2, PoolingNode.PoolingMethod.average);
 			// nn.addConvolutionalLayer(new Filter(5), 16, 1);
@@ -146,8 +150,7 @@ internal static class Mnist {
 	}
 
 	private static void writeToExcel(NNsData data) {
-		string rootPath = $"./{experimentTitle}";
-		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
+		createRootResultsDirectoryIfNotExists();
 
 		List<int> numOfGood = data.numOfGood;
 		List<List<KeyValuePair<int, int>>> memory = data.memory;
@@ -182,11 +185,14 @@ internal static class Mnist {
 	}
 
 	private static void writeNNsToFiles() {
-		string rootPath = $"./{experimentTitle}";
-		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
+		createRootResultsDirectoryIfNotExists();
 
 		for (int i = 0; i < nns.Count; i++)
 			File.WriteAllText($"{rootPath}/nn_{i}.json", nns[i].serialize());
+	}
+
+	private static void createRootResultsDirectoryIfNotExists() {
+		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
 	}
 }
 
