@@ -1,6 +1,5 @@
 ﻿using System;
 using NeuralNetworks;
-using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 
 namespace Testing {

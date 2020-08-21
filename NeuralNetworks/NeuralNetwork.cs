@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Layers;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;

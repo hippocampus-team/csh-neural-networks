@@ -1,5 +1,4 @@
 ﻿using System;
-using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 

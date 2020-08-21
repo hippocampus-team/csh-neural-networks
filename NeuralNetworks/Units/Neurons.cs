@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NeuralNetworks.ActivationFunctions;
 using NeuralNetworks.Misc;
 using Newtonsoft.Json.Linq;
 
