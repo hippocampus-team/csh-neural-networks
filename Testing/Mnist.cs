@@ -4,13 +4,16 @@ using System.IO;
 using System.Linq;
 using NeuralNetworks;
 using NeuralNetworks.Misc;
-using NeuralNetworks.Units;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
 namespace Testing {
 
 internal static class Mnist {
+	private const int PARALLEL_NNS = 2;
+	private const int TRAIN_SIZE = 8;
+	private const int TEST_SIZE = 2;
+	
 	private static string rootPath;
 	private static string experimentTitle;
 	private static List<NeuralNetwork> nns;
@@ -26,12 +29,12 @@ internal static class Mnist {
 
 		Console.WriteLine("Training started!");
 		Console.Write("In progress");
-		train(8);
+		train(TRAIN_SIZE);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData testData = test(2);
+		NNsData testData = test(TEST_SIZE);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing data to excel... ");
@@ -48,7 +51,7 @@ internal static class Mnist {
 
 	private static void setupNNs() {
 		nns = new List<NeuralNetwork>();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < PARALLEL_NNS; i++) {
 			NeuralNetwork nn = new NeuralNetwork();
 
 			nn.setInputLength(784);
