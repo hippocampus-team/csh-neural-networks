@@ -80,11 +80,11 @@ public class NeuralNetwork {
 		setUnitIdsForLastLayer();
 	}
 
-	public void addDenceLayer(int length, ActivationFunction activationFunction) {
+	public void addDenseLayer(int length, ActivationFunction activationFunction) {
 		if (layers.Count == 0)
-			throw new Exception("Dence layer can not be first one");
+			throw new Exception("Dense layer can not be first one");
 
-		layers.Add(new DenceLayer(length, layers.Last(), activationFunction));
+		layers.Add(new DenseLayer(length, layers.Last(), activationFunction));
 		setUnitIdsForLastLayer();
 	}
 

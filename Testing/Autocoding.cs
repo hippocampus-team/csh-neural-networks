@@ -11,8 +11,8 @@ internal static class Autocoding {
 		NeuralNetwork nn = new NeuralNetwork();
 
 		nn.setInputLength(TEST_NUM);
-		nn.addDenceLayer(16, new Sigmoid());
-		nn.addDenceLayer(TEST_NUM, new Sigmoid());
+		nn.addDenseLayer(16, new Sigmoid());
+		nn.addDenseLayer(TEST_NUM, new Sigmoid());
 
 		nn.fillRandomWeights();
 		nn.fillRandomBiases();

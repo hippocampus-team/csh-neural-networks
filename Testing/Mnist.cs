@@ -51,17 +51,17 @@ internal static class Mnist {
 			NeuralNetwork nn = new NeuralNetwork();
 
 			nn.setInputLength(784);
-			nn.addDenceLayer(300, new ModifiedSigmoid());
-			nn.addDenceLayer(10, new ModifiedSigmoid());
+			nn.addDenseLayer(300, new ModifiedSigmoid());
+			nn.addDenseLayer(10, new ModifiedSigmoid());
 			
 			///// LeNet-5 ? 
 			// nn.setInputLength(784);
 			// nn.addPoolingLayer(new Filter(2), 2, PoolingNode.PoolingMethod.average);
 			// nn.addConvolutionalLayer(new Filter(5), 16, 1);
 			// nn.addPoolingLayer(new Filter(2), 2, PoolingNode.PoolingMethod.average);
-			// nn.addDenceLayer(120);
-			// nn.addDenceLayer(84);
-			// nn.addDenceLayer(10);
+			// nn.addDenseLayer(120);
+			// nn.addDenseLayer(84);
+			// nn.addDenseLayer(10);
 
 			nn.fillRandomWeights();
 			nn.fillRandomBiases();
