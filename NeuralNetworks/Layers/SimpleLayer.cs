@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
-using Newtonsoft.Json.Linq;
 
 namespace NeuralNetworks.Layers {
 
 public class SimpleLayer : Layer {
-	public override EList<Unit> input { get; }
-	public override EList<Unit> output { get; }
+	public sealed override EList<Unit> input { get; protected set; }
+	public sealed override EList<Unit> output { get; protected set; }
 
 	public SimpleLayer(int n) {
 		EList<Unit> nodes = new EList<Unit>();
@@ -72,20 +71,11 @@ public class SimpleLayer : Layer {
 		return values;
 	}
 
-	public string Serialize() {
-		JObject layer = new JObject {["type"] = nameof(SimpleLayer)};
-
-		JArray unitsArray = new JArray();
-		foreach (Unit unit in input) unitsArray.Add(unit.toJObject());
-		layer["units"] = unitsArray;
-
-		return layer.ToString();
-	}
-
 	public override void fillWeightsRandom() { }
 	public override void fillBiasesRandom() { }
 	public override void applyDerivativesToWeights(double learningFactor) { }
 	public override void applyDerivativesToBiases(double learningFactor) { }
+	public static SimpleLayer getEmpty() => new SimpleLayer(0);
 }
 
 }

@@ -8,8 +8,10 @@ public class PoolingLayer : Layer {
 	private MatrixModel model { get; }
 	private Filter mask { get; }
 
-	public override EList<Unit> input { get; }
-	public override EList<Unit> output { get; }
+	public sealed override EList<Unit> input { get; protected set; }
+	public sealed override EList<Unit> output { get; protected set; }
+
+	private PoolingLayer() { }
 
 	public PoolingLayer(Layer inputLayer, Filter mask, int stride, PoolingNode.PoolingMethod method) {
 		model = new MatrixModel(inputLayer.output, stride);
@@ -62,6 +64,7 @@ public class PoolingLayer : Layer {
 	public override void fillBiasesRandom() { }
 	public override void applyDerivativesToWeights(double learningFactor) { }
 	public override void applyDerivativesToBiases(double learningFactor) { }
+	public static PoolingLayer getEmpty() => new PoolingLayer();
 }
 
 }

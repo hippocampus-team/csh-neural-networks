@@ -26,6 +26,20 @@ public abstract class Unit {
 
 		return unit;
 	}
+	
+	public virtual Unit fillFromJObject(JObject json) {
+		id = json["id"]!.Value<string>();
+		value = json["value"]!.Value<double>();
+		derivative = json["derivative"]!.Value<double>();
+		
+		inputUnits = new EList<Unit>();
+
+		JArray inputUnitsJArray = json["inputs"]!.Value<JArray>();
+		foreach (JToken unitIdJson in inputUnitsJArray)
+			inputUnits.Add(ConstructionNeuronIndexer.activeIndexer.getUnitById(unitIdJson.Value<string>()));
+
+		return this;
+	}
 }
 
 }

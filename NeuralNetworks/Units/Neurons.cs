@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using NeuralNetworks.Layers;
 using NeuralNetworks.Misc;
 using Newtonsoft.Json.Linq;
 
 namespace NeuralNetworks.Units {
 
 public class Neuron : Unit {
-	public List<double> weights { get; }
+	public List<double> weights { get; private set; }
 	public double bias { get; set; }
-	protected ActivationFunction activationFunction { get; }
+	protected ActivationFunction activationFunction { get; private set; }
+
+	protected Neuron() { }
 
 	public Neuron(EList<Unit> inputUnits, ActivationFunction activationFunction) {
 		value = 0;
@@ -50,14 +54,36 @@ public class Neuron : Unit {
 		foreach (double weight in weights) weightsArray.Add(weight);
 		unit["weights"] = weightsArray;
 
+		unit["af"] = activationFunction.GetType().Name;
+
 		return unit;
 	}
+	
+	public override Unit fillFromJObject(JObject json) {
+		base.fillFromJObject(json);
+
+		bias = json["bias"]!.Value<double>();
+
+		weights = new List<double>();
+		JArray weightsJArray = json["weights"]!.Value<JArray>();
+		foreach (JToken weightJson in weightsJArray)
+			weights.Add(weightJson.Value<double>());
+
+		activationFunction = (ActivationFunction) 
+			Activator.CreateInstance(Type.GetType("NeuralNetworks." + json["af"]!.Value<string>())!);
+
+		return this;
+	}
+	
+	public static Neuron getEmpty() => new Neuron();
 }
 
 public class ConvolutionalNeuron : Neuron {
 	private Filter filter { get; }
 	private List<int> indexes { get; }
 	private int column { get; }
+	
+	private ConvolutionalNeuron() { }
 
 	public ConvolutionalNeuron(EList<Unit> inputUnits, Filter filter, List<int> indexes, int column, 
 							   ActivationFunction activationFunction) :
@@ -89,6 +115,8 @@ public class ConvolutionalNeuron : Neuron {
 								* activationFunction.countDerivative(value);
 		}
 	}
+	
+	public new static ConvolutionalNeuron getEmpty() => new ConvolutionalNeuron();
 }
 
 // public class SharedNeuron : Neuron {

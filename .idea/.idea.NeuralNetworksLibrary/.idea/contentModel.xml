@@ -8,6 +8,7 @@
         <e p="ActivationFunctions.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Constants.cs" t="Include" />
+        <e p="ConstructionNeuronIndexer.cs" t="Include" />
         <e p="Layers" t="Include">
           <e p="ConvolutionalLayer.cs" t="Include" />
           <e p="DenceLayer.cs" t="Include" />
@@ -39,6 +40,7 @@
       <e p="Testing" t="IncludeRecursive">
         <e p="Autocoding.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Deserializer.cs" t="Include" />
         <e p="Entery.cs" t="Include" />
         <e p="Mnist.cs" t="Include" />
         <e p="mnist_data" t="Include">
@@ -55,6 +57,7 @@
           </e>
         </e>
         <e p="Testing.csproj" t="IncludeRecursive" />
+        <e p="Utils.cs" t="Include" />
       </e>
     </e>
   </component>

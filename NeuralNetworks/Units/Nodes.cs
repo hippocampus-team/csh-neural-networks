@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using NeuralNetworks.Layers;
 using NeuralNetworks.Misc;
 
 namespace NeuralNetworks.Units {
@@ -16,9 +17,12 @@ public class Node : Unit {
 	public override void countDerivatives() { }
 	public override void applyDerivativesToWeights(double learningFactor) { }
 	public override void applyDerivativesToBias(double learningFactor) { }
+	public static Node getEmpty() => new Node(0);
 }
 
 public class ReferNode : Node {
+	private ReferNode() { }
+
 	public ReferNode(Unit inputUnit) {
 		value = inputUnit.value;
 		derivative = 0;
@@ -28,6 +32,8 @@ public class ReferNode : Node {
 	public override void count() => value = inputUnits[0].value;
 
 	public override void countDerivatives() => inputUnits[0].derivative = derivative;
+	
+	public new static ReferNode getEmpty() => new ReferNode();
 }
 
 public class PoolingNode : Node {
@@ -38,6 +44,8 @@ public class PoolingNode : Node {
 	}
 
 	private PoolingMethod method { get; }
+
+	private PoolingNode() { }
 
 	public PoolingNode(EList<Unit> inputUnits) : this(inputUnits, 0) { }
 
@@ -81,6 +89,8 @@ public class PoolingNode : Node {
 				break;
 		}
 	}
+	
+	public new static PoolingNode getEmpty() => new PoolingNode();
 }
 
 }

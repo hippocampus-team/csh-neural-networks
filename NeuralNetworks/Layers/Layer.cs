@@ -1,12 +1,14 @@
-﻿using NeuralNetworks.Misc;
+﻿using System;
+using System.Linq;
+using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 using Newtonsoft.Json.Linq;
 
 namespace NeuralNetworks.Layers {
 
 public abstract class Layer {
-	public abstract EList<Unit> input { get; }
-	public abstract EList<Unit> output { get; }
+	public abstract EList<Unit> input { get; protected set; }
+	public abstract EList<Unit> output { get; protected set; }
 
 	public abstract void count();
 
@@ -21,8 +23,10 @@ public abstract class Layer {
 
 	public abstract EList<double> getInputValues();
 	public abstract EList<double> getOutputValues();
-
-	public JObject toJObject() {
+	
+	public virtual Unit this[int neuronIndex] => input[neuronIndex];
+	
+	public virtual JObject toJObject() {
 		JObject layer = new JObject {["type"] = GetType().Name};
 
 		JArray unitsArray = new JArray();
@@ -30,6 +34,21 @@ public abstract class Layer {
 		layer["units"] = unitsArray;
 
 		return layer;
+	}
+	public virtual Layer fillFromJObject(JObject json) {
+		JArray unitsJArray = json["units"]!.Value<JArray>();
+
+		EList<Unit> units = 
+			new EList<Unit>((from JObject unitJson in unitsJArray 
+							 let typeName = unitJson["type"]!.Value<string>() 
+							 let unitType = Type.GetType("NeuralNetworks.Units." + typeName) 
+							 let initUnitMethod = unitType!.GetMethod("fillFromJObject") 
+							 let unit = (Unit) unitType.GetMethod("getEmpty")?.Invoke(null, null) 
+							 select unit.fillFromJObject(unitJson)).ToList());
+
+		input = units;
+		output = units;
+		return this;
 	}
 }
 

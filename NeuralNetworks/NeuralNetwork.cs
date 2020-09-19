@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using NeuralNetworks.Layers;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
@@ -9,9 +10,10 @@ using Newtonsoft.Json.Linq;
 namespace NeuralNetworks {
 
 public class NeuralNetwork {
-	private string name { get; }
-	private string description { get; }
-	private List<Layer> layers { get; }
+	public string name { get; set; }
+	public string description { get; set; }
+	
+	private List<Layer> layers { get; set; }
 	private bool useBiases { get; }
 
 	public Layer this[int layer] => layers[layer];
@@ -129,7 +131,29 @@ public class NeuralNetwork {
 		return nn.ToString();
 	}
 
-	public static NeuralNetwork deserialize(string str) => new NeuralNetwork();
+	public static NeuralNetwork deserialize(string jsonString) {
+		JObject json = JObject.Parse(jsonString);
+		
+		NeuralNetwork nn = new NeuralNetwork {
+			name = json["name"]!.Value<string>(), 
+			description = json["description"]!.Value<string>(),
+			layers = new List<Layer>()
+		};
+		
+		ConstructionNeuronIndexer.startConstruction(nn);
+		
+		JArray layersJson = json["layers"]!.Value<JArray>();
+		foreach (JObject layerJson in layersJson) {
+			string typeName = layerJson["type"]!.Value<string>();
+			Type? layerType = Type.GetType("NeuralNetworks.Layers." + typeName);
+			Layer layer = (Layer) layerType.GetMethod("getEmpty")?.Invoke(null, null);
+			nn.layers.Add(layer.fillFromJObject(layerJson));
+		}
+		
+		ConstructionNeuronIndexer.endConstruction();
+
+		return nn;
+	}
 
 	private void setUnitIdsForLastLayer() {
 		Layer layer = layers.Last();

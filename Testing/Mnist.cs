@@ -4,53 +4,49 @@ using System.IO;
 using System.Linq;
 using NeuralNetworks;
 using NeuralNetworks.Misc;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
 
 namespace Testing {
 
 internal static class Mnist {
-	private const int PARALLEL_NNS = 2;
-	private const int TRAIN_SIZE = 8;
-	private const int TEST_SIZE = 2;
+	private const int PARALLEL_NNS = 4;
+	private const int TRAIN_SIZE = 10;
+	private const int TEST_SIZE = 4;
 	
-	private static string rootPath;
 	private static string experimentTitle;
-	private static List<NeuralNetwork> nns;
 
 	public static void run() {
 		Console.Write("Hello. Enter experiment title: ");
 		experimentTitle = Console.ReadLine();
-		rootPath = $"./results/{experimentTitle}";
+		string rootPath = $"./experiments/{experimentTitle}";
 
 		Console.Write("Initialisation of NNs...");
-		setupNNs();
+		List<NeuralNetwork> nns = setupNNs();
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Training started!");
 		Console.Write("In progress");
-		train(TRAIN_SIZE);
+		train(nns, TRAIN_SIZE);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData testData = test(TEST_SIZE);
+		NNsData testData = test(nns, TEST_SIZE);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing data to excel... ");
-		writeToExcel(testData);
+		Utils.writeToExcel(testData, rootPath);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing NNs configurations to files... ");
-		writeNNsToFiles();
+		Utils.writeNNsToFiles(nns, rootPath);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Process is completed and result is saved in excel file.");
 		Console.ReadKey();
 	}
 
-	private static void setupNNs() {
-		nns = new List<NeuralNetwork>();
+	private static List<NeuralNetwork> setupNNs() {
+		List<NeuralNetwork> nns = new List<NeuralNetwork>();
 		for (int i = 0; i < PARALLEL_NNS; i++) {
 			NeuralNetwork nn = new NeuralNetwork();
 
@@ -72,9 +68,11 @@ internal static class Mnist {
 
 			nns.Add(nn);
 		}
+
+		return nns;
 	}
 
-	private static void train(int iterations) {
+	public static void train(List<NeuralNetwork> nns, int iterations) {
 		FileStream trainImages = new FileStream("data/train_imgs", FileMode.Open);
 		FileStream trainLabels = new FileStream("data/train_lbls", FileMode.Open);
 		trainImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -88,7 +86,7 @@ internal static class Mnist {
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
-				int digit = getNextByte(trainLabels);
+				int digit = Utils.getNextByte(trainLabels);
 
 				byte[] byteInput = new byte[784];
 				trainImages.Read(byteInput, 0, 784);
@@ -107,7 +105,7 @@ internal static class Mnist {
 		}
 	}
 
-	private static NNsData test(int iterations) {
+	public static NNsData test(List<NeuralNetwork> nns, int iterations) {
 		FileStream testImages = new FileStream("data/test_imgs", FileMode.Open);
 		FileStream testLabels = new FileStream("data/test_lbls", FileMode.Open);
 		testImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -121,7 +119,7 @@ internal static class Mnist {
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
-				int digit = getNextByte(testLabels);
+				int digit = Utils.getNextByte(testLabels);
 
 				byte[] byteInput = new byte[784];
 				testImages.Read(byteInput, 0, 784);
@@ -144,61 +142,9 @@ internal static class Mnist {
 
 		return new NNsData(numOfGood, memory);
 	}
-
-	private static int getNextByte(Stream fileStream) {
-		byte[] digit = new byte[1];
-		fileStream.Read(digit, 0, 1);
-		return digit[0];
-	}
-
-	private static void writeToExcel(NNsData data) {
-		createRootResultsDirectoryIfNotExists();
-
-		List<int> numOfGood = data.numOfGood;
-		List<List<KeyValuePair<int, int>>> memory = data.memory;
-
-		ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-		using ExcelPackage package = new ExcelPackage(new FileInfo($"{rootPath}/test_results.xlsx"));
-		ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(experimentTitle);
-
-		for (int i = 0; i < nns.Count; i++) {
-			int currentColumn = i * 2 + 1;
-
-			worksheet.Cells[1, currentColumn].Value = "ANS" + (i + 1);
-			worksheet.Cells[1, currentColumn].Style.Font.Bold = true;
-			worksheet.Cells[1, currentColumn + 1].Value = "EXP" + (i + 1);
-			worksheet.Cells[1, currentColumn + 1].Style.Font.Bold = true;
-
-			worksheet.Cells[2, currentColumn].Value = numOfGood[i];
-			worksheet.Cells[2, currentColumn + 1].Value = memory[i].Count;
-			worksheet.Cells[3, currentColumn + 1].Value = numOfGood[i] * 1d / memory[i].Count;
-
-			for (int index = 0; index < memory[i].Count; index++) {
-				(int key, int value) = memory[i][index];
-
-				worksheet.Cells[4 + index, currentColumn].Value = key;
-				worksheet.Cells[4 + index, currentColumn + 1].Value = value;
-			}
-
-			worksheet.Column(currentColumn + 1).Style.Border.Right.Style = ExcelBorderStyle.Thin;
-		}
-
-		package.Save();
-	}
-
-	private static void writeNNsToFiles() {
-		createRootResultsDirectoryIfNotExists();
-
-		for (int i = 0; i < nns.Count; i++)
-			File.WriteAllText($"{rootPath}/nn_{i}.json", nns[i].serialize());
-	}
-
-	private static void createRootResultsDirectoryIfNotExists() {
-		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
-	}
 }
 
-internal class NNsData {
+public class NNsData {
 	public List<int> numOfGood { get; }
 	public List<List<KeyValuePair<int, int>>> memory { get; }
 

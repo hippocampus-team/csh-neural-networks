@@ -9,8 +9,10 @@ public class ConvolutionalLayer : Layer {
 	private List<List<Filter>> kernels { get; }
 	private MatrixModel model { get; }
 
-	public override EList<Unit> input { get; }
-	public override EList<Unit> output { get; }
+	public sealed override EList<Unit> input { get; protected set; }
+	public sealed override EList<Unit> output { get; protected set; }
+
+	private ConvolutionalLayer() { }
 
 	public ConvolutionalLayer(Layer inputLayer, Filter filter, int filtersAmount, int stride, 
 							  ActivationFunction activationFunction) {
@@ -91,6 +93,7 @@ public class ConvolutionalLayer : Layer {
 
 	public override EList<double> getInputValues() => throw new NotImplementedException();
 	public override EList<double> getOutputValues() => throw new NotImplementedException();
+	public static ConvolutionalLayer getEmpty() => new ConvolutionalLayer();
 }
 
 }
