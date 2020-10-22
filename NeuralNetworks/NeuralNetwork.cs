@@ -132,24 +132,45 @@ public class NeuralNetwork {
 	}
 
 	public static NeuralNetwork deserialize(string jsonString) {
-		JObject json = JObject.Parse(jsonString);
-		
+		JObject json;
+		try {
+			json = JObject.Parse(jsonString);
+		} catch (Exception e) {
+			Console.WriteLine("Error while parsing json: ");
+			Console.WriteLine(e);
+			throw;
+		}
+
 		NeuralNetwork nn = new NeuralNetwork {
-			name = json["name"]!.Value<string>(), 
-			description = json["description"]!.Value<string>(),
+			name = json["name"]?.Value<string>() ?? "", 
+			description = json["description"]?.Value<string>() ?? "",
 			layers = new List<Layer>()
 		};
-		
+
 		ConstructionNeuronIndexer.startConstruction(nn);
 		
-		JArray layersJson = json["layers"]!.Value<JArray>();
-		foreach (JObject layerJson in layersJson) {
-			string typeName = layerJson["type"]!.Value<string>();
-			Type? layerType = Type.GetType("NeuralNetworks.Layers." + typeName);
-			Layer layer = (Layer) layerType.GetMethod("getEmpty")?.Invoke(null, null);
-			nn.layers.Add(layer.fillFromJObject(layerJson));
+		try {
+			JArray layersJson = json["layers"]!.Value<JArray>();
+			foreach (JToken layerJsonToken in layersJson) {
+				JObject layerJson = (JObject) layerJsonToken;
+				
+				string typeName = layerJson["type"]?.Value<string>() 
+								  ?? throw new ArgumentException("Layer type not found in " + layerJsonToken.Path);
+				
+				Type layerType = Type.GetType("NeuralNetworks.Layers." + typeName);
+				if (layerType == null) throw new ArgumentException("Wrong layer type of " + layerJsonToken.Path);
+				
+				Layer layer = (Layer) layerType.GetMethod("getEmpty")?.Invoke(null, null);
+				if (layer == null) throw new ArgumentException("Wrong layer type of " + layerJsonToken.Path);
+				
+				nn.layers.Add(layer.fillFromJObject(layerJson));
+			}
+		} catch (Exception e) {
+			Console.WriteLine("Error constructing neural network: ");
+			Console.WriteLine(e);
+			throw;
 		}
-		
+
 		ConstructionNeuronIndexer.endConstruction();
 
 		return nn;
