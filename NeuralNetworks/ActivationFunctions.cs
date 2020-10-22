@@ -53,7 +53,39 @@ public class HyperbolicTangent : ActivationFunction {
 
 	public double countDerivative(double value) {
 		double tanh = count(value);
-		return 1 - tanh * tanh;
+		return 1d - tanh * tanh;
+	}
+}
+
+public class Relu : ActivationFunction {
+	public double count(double value) {
+		return value > 0 ? value : 0d;
+	}
+
+	public double countDerivative(double value) {
+		return value > 0 ? 1 : 0;
+	}
+}
+
+public class LeakyRelu : ActivationFunction {
+	private const double leakCoefficient = 0.01d;
+	
+	public double count(double value) {
+		return value >= 0 ? value : value * leakCoefficient;
+	}
+
+	public double countDerivative(double value) {
+		return value > 0 ? 1 : leakCoefficient;
+	}
+}
+
+public class Sinusoid : ActivationFunction {
+	public double count(double value) {
+		return Math.Sin(value);
+	}
+
+	public double countDerivative(double value) {
+		return Math.Cos(value);
 	}
 }
 
