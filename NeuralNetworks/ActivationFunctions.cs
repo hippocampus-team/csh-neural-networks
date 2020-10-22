@@ -8,38 +8,43 @@ public interface ActivationFunction {
 }
 
 public class Sigmoid : ActivationFunction {
+	private const double countApproximationLimit = 50d;
+	
 	public double count(double value) {
-		if (value < -50.0) return 0.0;
-		if (value > 50.0) return 1.0;
+		if (value < -countApproximationLimit) return 0d;
+		if (value > countApproximationLimit) return 1d;
 		
 		// Equivalent to 1.0d / (1.0d + Math.Exp(-value));
-		
 		double k = Math.Exp(value);
-		return k / (1.0d + k);
+		return k / (1d + k);
 	}
 
 	public double countDerivative(double value) {
 		double sigmoid = count(value);
-		return sigmoid * (1 - sigmoid);
+		return sigmoid * (1d - sigmoid);
 	}
 }
 
 public class ModifiedSigmoid : ActivationFunction {
+	private const double countApproximationLimit = 50d;
+	
 	public double count(double value) {
-		if (value < -50.0) return 0.0;
-		if (value > 50.0) return 1.0;
+		if (value < -countApproximationLimit) return 0d;
+		if (value > countApproximationLimit) return 1d;
 
 		double k = Math.Exp(value);
-		return k / (1.0d + k);
+		return k / (1d + k);
 	}
 	
 	public double countDerivative(double value) => value * (1 - value);
 }
 
 public class HyperbolicTangent : ActivationFunction {
+	private const double countApproximationLimit = 50d;
+	
 	public double count(double value) {
-		if (value < -50.0) return 0.0;
-		if (value > 50.0) return 1.0;
+		if (value < -countApproximationLimit) return -1d;
+		if (value > countApproximationLimit) return 1d;
 
 		double a = Math.Exp(value);
 		double b = Math.Exp(-value);
