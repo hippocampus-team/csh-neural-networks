@@ -7,6 +7,16 @@ public interface ActivationFunction {
 	double countDerivative(double value);
 }
 
+public class Identity : ActivationFunction {
+	public double count(double value) {
+		return value;
+	}
+
+	public double countDerivative(double value) {
+		return 1;
+	}
+}
+
 public class Sigmoid : ActivationFunction {
 	private const double countApproximationLimit = 50d;
 	
