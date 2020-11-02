@@ -2,7 +2,7 @@
 
 namespace NeuralNetworks.Units {
 
-public class PrunableNeuron : Neuron {
+public class PrunableNeuron : Neuron, TransformableToNormalNeuron {
 	private EList<double> weightsMemoryDerivitives;
 
 	public PrunableNeuron(EList<Unit> inputUnits, ActivationFunction activationFunction) 
@@ -11,6 +11,16 @@ public class PrunableNeuron : Neuron {
 
 		for (int i = 0; i < inputUnits.Count; i++) 
 			weightsMemoryDerivitives.Add(0);
+	}
+
+	public PrunableNeuron(Neuron original) 
+		: this(original.inputUnits, original.activationFunction) {
+		value = original.value;
+		bias = original.bias;
+		derivative = original.derivative;
+
+		for (int i = 0; i < original.weights.Count; i++)
+			weights[i] = original.weights[i];
 	}
 	
 	public override void countDerivatives() {
@@ -38,6 +48,20 @@ public class PrunableNeuron : Neuron {
 		weightsMemoryDerivitives.Clear();
 		for (int i = 0; i < inputUnits.Count; i++) 
 			weightsMemoryDerivitives.Add(0);
+	}
+
+	public Neuron toNormalNeuron() {
+		Neuron neuron =
+			new Neuron(inputUnits, activationFunction) {
+				value = value, 
+				bias = bias, 
+				derivative = derivative
+			};
+
+		for (int i = 0; i < weights.Count; i++)
+			neuron.weights[i] = weights[i];
+
+		return neuron;
 	}
 }
 

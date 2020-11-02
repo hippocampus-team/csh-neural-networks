@@ -10,7 +10,7 @@ namespace NeuralNetworks.Units {
 public class Neuron : Unit {
 	public List<double> weights { get; private set; }
 	public double bias { get; set; }
-	protected ActivationFunction activationFunction { get; private set; }
+	public ActivationFunction activationFunction { get; set; }
 
 	protected Neuron() { }
 
@@ -117,6 +117,10 @@ public class ConvolutionalNeuron : Neuron {
 	}
 	
 	public new static ConvolutionalNeuron getEmpty() => new ConvolutionalNeuron();
+}
+
+public interface TransformableToNormalNeuron {
+	public Neuron toNormalNeuron();
 }
 
 // public class SharedNeuron : Neuron {
