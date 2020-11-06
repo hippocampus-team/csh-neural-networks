@@ -6,11 +6,12 @@ using NeuralNetworks.Units;
 namespace NeuralNetworks.Layers {
 
 public class ConvolutionalLayer : Layer {
-	private List<List<Filter>> kernels { get; }
-	private MatrixModel model { get; }
-
 	public sealed override EList<Unit> input { get; protected set; }
 	public sealed override EList<Unit> output { get; protected set; }
+	public override IEnumerable<Unit> neurons => input;
+	
+	private List<List<Filter>> kernels { get; }
+	private MatrixModel model { get; }
 
 	private ConvolutionalLayer() { }
 

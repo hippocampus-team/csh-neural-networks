@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 
@@ -7,6 +8,7 @@ namespace NeuralNetworks.Layers {
 public class DenseLayer : Layer {
 	public sealed override EList<Unit> input { get; protected set; }
 	public sealed override EList<Unit> output { get; protected set; }
+	public override IEnumerable<Unit> neurons => input;
 
 	private DenseLayer() { }
 

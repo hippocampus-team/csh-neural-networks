@@ -7,6 +7,7 @@ namespace NeuralNetworks.Layers {
 public class SimpleLayer : Layer {
 	public sealed override EList<Unit> input { get; protected set; }
 	public sealed override EList<Unit> output { get; protected set; }
+	public override IEnumerable<Unit> neurons => input;
 
 	public SimpleLayer(int n) {
 		EList<Unit> nodes = new EList<Unit>();

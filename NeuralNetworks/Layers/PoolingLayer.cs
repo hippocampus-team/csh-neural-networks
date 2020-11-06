@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
 
 namespace NeuralNetworks.Layers {
 
 public class PoolingLayer : Layer {
-	private MatrixModel model { get; }
-	private Filter mask { get; }
-
 	public sealed override EList<Unit> input { get; protected set; }
 	public sealed override EList<Unit> output { get; protected set; }
+	public override IEnumerable<Unit> neurons => input;
+	
+	private MatrixModel model { get; }
+	private Filter mask { get; }
 
 	private PoolingLayer() { }
 

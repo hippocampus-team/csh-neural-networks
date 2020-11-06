@@ -130,7 +130,7 @@ public class ExperimentLog {
 		topologyLayerRecords.Clear();
 		
 		foreach (Layer layer in nn.layers)
-			topologyLayerRecords.Add(new LogTopologyLayerRecord(layer.GetType().Name, layer.input.Count));
+			topologyLayerRecords.Add(new LogTopologyLayerRecord(layer.GetType().Name, layer.neurons.Count()));
 	}
 
 	public string getString() {

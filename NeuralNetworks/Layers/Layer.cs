@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
@@ -9,6 +10,7 @@ namespace NeuralNetworks.Layers {
 public abstract class Layer {
 	public abstract EList<Unit> input { get; protected set; }
 	public abstract EList<Unit> output { get; protected set; }
+	public abstract IEnumerable<Unit> neurons { get; }
 
 	public abstract void count();
 
@@ -30,7 +32,7 @@ public abstract class Layer {
 		JObject layer = new JObject {["type"] = GetType().Name};
 
 		JArray unitsArray = new JArray();
-		foreach (Unit unit in input) unitsArray.Add(unit.toJObject());
+		foreach (Unit unit in neurons) unitsArray.Add(unit.toJObject());
 		layer["units"] = unitsArray;
 
 		return layer;
