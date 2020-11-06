@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using NeuralNetworks;
+using NeuralNetworks.Layers;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
@@ -14,12 +17,12 @@ public class Utils {
 		return digit[0];
 	}
 
-	public static void writeToExcel<T>(NNsData<T> data, string rootPath) {
+	public static void writeToExcel<T>(NNsTestResults<T> testResults, string rootPath) {
 		createRootResultsDirectoryIfNotExists(rootPath);
 
-		List<int> correctAnswersAmount = data.correctAnswersAmount;
-		List<T> correctAnswers = data.correctAnswers;
-		List<List<T>> answers = data.answers;
+		List<int> correctAnswersAmount = testResults.correctAnswersAmount;
+		List<T> correctAnswers = testResults.correctAnswers;
+		List<List<T>> answers = testResults.answers;
 
 		ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 		using ExcelPackage package = new ExcelPackage(new FileInfo($"{rootPath}/test_results.xlsx"));
@@ -60,21 +63,156 @@ public class Utils {
 		for (int i = 0; i < nns.Count; i++)
 			File.WriteAllText($"{rootPath}/nn_{i}.json", nns[i].serialize());
 	}
+	
+	public static void endLogAndWriteToFile(ExperimentLog log, string rootPath) {
+		createRootResultsDirectoryIfNotExists(rootPath);
+		
+		log.end();
+		File.WriteAllText($"{rootPath}/log.txt", log.getString());
+	}
 
 	private static void createRootResultsDirectoryIfNotExists(string rootPath) {
 		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
 	}
 }
 
-public class NNsData <T> {
+public class NNsTestResults <T> {
 	public List<int> correctAnswersAmount { get; }
 	public List<T> correctAnswers { get; }
 	public List<List<T>> answers { get; }
 
-	public NNsData(List<int> correctAnswersAmount, List<T> correctAnswers, List<List<T>> answers) {
+	public NNsTestResults(List<int> correctAnswersAmount, List<T> correctAnswers, List<List<T>> answers) {
 		this.correctAnswersAmount = correctAnswersAmount;
 		this.correctAnswers = correctAnswers;
 		this.answers = answers;
+	}
+}
+
+public class ExperimentLog {
+	private readonly string title;
+	private readonly string description;
+
+	private TimeSpan duration;
+	private readonly DateTime initDateTime;
+	private DateTime finishDateTime;
+
+	private readonly List<LogPhase> phases;
+	private readonly List<LogTopologyLayerRecord> topologyLayerRecords;
+	
+	public ExperimentLog() {
+		initDateTime = DateTime.Now;
+		phases = new List<LogPhase>(4);
+		topologyLayerRecords = new List<LogTopologyLayerRecord>();
+	}
+
+	public ExperimentLog(string title, string description, NeuralNetwork topologyRecordNetwork = null) : this() {
+		this.title = title;
+		this.description = description;
+		
+		if (topologyRecordNetwork != null) 
+			recordTopologyFromNetwork(topologyRecordNetwork);
+	}
+
+	public void end() {
+		finishDateTime = DateTime.Now;
+		duration = finishDateTime - initDateTime;
+	}
+
+	public void startPhase(string title, string configuration, int iterations, int amountOfParallelNetworks) {
+		phases.Add(new LogPhase(title, configuration, iterations, amountOfParallelNetworks));
+	}
+
+	public void endPhase() {
+		phases.Last().end();
+	}
+	
+	public void recordTopologyFromNetwork(NeuralNetwork nn) {
+		topologyLayerRecords.Clear();
+		
+		foreach (Layer layer in nn.layers)
+			topologyLayerRecords.Add(new LogTopologyLayerRecord(layer.GetType().Name, layer.input.Count));
+	}
+
+	public string getString() {
+		string text = "";
+
+		text += $"Title: {title}\n";
+		text += $"Description: {description}\n";
+		text += $"\n";
+		text += $"Duration: {duration}\n";
+		text += $"Initiated at: {initDateTime}\n";
+		text += $"Finished at: {finishDateTime}\n";
+		text += $"\n";
+		
+		text += $"Topology record: \n";
+		text = topologyLayerRecords.Aggregate(text, (current, topologyLayerRecord) 
+												  => current + topologyLayerRecord.getString());
+		text += $"\n";
+		
+		text += $"Phases: \n";
+		text = phases.Aggregate(text, (current, phase) 
+									=> current + phase.getString());
+		text += $"\n";
+
+		return text;
+	}
+}
+
+public class LogPhase {
+	private readonly string title;
+	private readonly string configuration;
+
+	private readonly int iterations;
+	private readonly int amountOfParallelNetworks;
+	
+	private TimeSpan duration;
+	private readonly DateTime startDateTime;
+	private DateTime finishDateTime;
+
+	public LogPhase(string title, string configuration, int iterations, int amountOfParallelNetworks) {
+		this.title = title;
+		this.configuration = configuration;
+		this.iterations = iterations;
+		this.amountOfParallelNetworks = amountOfParallelNetworks;
+		
+		startDateTime = DateTime.Now;
+	}
+
+	public void end() {
+		finishDateTime = DateTime.Now;
+		duration = finishDateTime - startDateTime;
+	}
+
+	public string getString() {
+		string text = "";
+
+		text += $"/// {title}\n";
+		text += $"Configuration: {configuration}\n";
+		text += $"Iterations: {iterations}\n";
+		text += $"Parallel networks: {amountOfParallelNetworks}\n";
+		text += $"\n";
+		text += $"Duration: {duration}\n";
+		text += $"Initiated at: {startDateTime}\n";
+		text += $"Finished at: {finishDateTime}\n";
+		text += $"\n";
+
+		return text;
+	}
+}
+
+public class LogTopologyLayerRecord {
+	private readonly string type;
+	private readonly int numberOfNeurons;
+	private readonly string configuration;
+
+	public LogTopologyLayerRecord(string type, int numberOfNeurons, string configuration = "") {
+		this.type = type;
+		this.numberOfNeurons = numberOfNeurons;
+		this.configuration = configuration;
+	}
+
+	public string getString() {
+		return $"{type} {numberOfNeurons} {configuration}\n";
 	}
 }
 

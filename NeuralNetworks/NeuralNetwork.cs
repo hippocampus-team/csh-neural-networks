@@ -12,8 +12,8 @@ public class NeuralNetwork {
 	public string name { get; set; }
 	public string description { get; set; }
 	
-	private List<Layer> layers { get; set; }
-	private bool useBiases { get; }
+	public List<Layer> layers { get; private set; }
+	public bool useBiases { get; }
 
 	public Layer this[int layer] => layers[layer];
 	

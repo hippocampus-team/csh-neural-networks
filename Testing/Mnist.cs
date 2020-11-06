@@ -8,16 +8,22 @@ using NeuralNetworks.Misc;
 namespace Testing {
 
 internal static class Mnist {
-	private const int PARALLEL_NNS = 4;
-	private const int TRAIN_SIZE = 10;
-	private const int TEST_SIZE = 4;
-	
-	private static string experimentTitle;
+	private const int parallelNns = 2;
+	private const int trainSize = 1;
+	private const int testSize = 3;
+	private const double learningStep = 0.1d;
+
+	private static ExperimentLog log;
 
 	public static void run() {
-		Console.Write("Hello. Enter experiment title: ");
-		experimentTitle = Console.ReadLine();
+		Console.Write("Hello. Enter experiments title: ");
+		string experimentTitle = Console.ReadLine();
+		
+		Console.Write("Enter experiments description: ");
+		string experimentDescription = Console.ReadLine();
+		
 		string rootPath = $"./experiments/{experimentTitle}";
+		log = new ExperimentLog(experimentTitle, experimentDescription);
 
 		Console.Write("Initialisation of NNs...");
 		List<NeuralNetwork> nns = setupNNs();
@@ -25,16 +31,20 @@ internal static class Mnist {
 
 		Console.WriteLine("Training started!");
 		Console.Write("In progress");
-		train(nns, TRAIN_SIZE);
+		train(nns, trainSize);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData<int> testData = test(nns, TEST_SIZE);
+		NNsTestResults<int> testResults = test(nns, testSize);
+		Console.WriteLine(" Done.");
+		
+		Console.Write("Saving log... ");
+		Utils.endLogAndWriteToFile(log, rootPath);
 		Console.WriteLine(" Done.");
 
-		Console.Write("Writing data to excel... ");
-		Utils.writeToExcel(testData, rootPath);
+		Console.Write("Writing results to excel... ");
+		Utils.writeToExcel(testResults, rootPath);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing NNs configurations to files... ");
@@ -47,7 +57,7 @@ internal static class Mnist {
 
 	private static List<NeuralNetwork> setupNNs() {
 		List<NeuralNetwork> nns = new List<NeuralNetwork>();
-		for (int i = 0; i < PARALLEL_NNS; i++) {
+		for (int i = 0; i < parallelNns; i++) {
 			NeuralNetwork nn = new NeuralNetwork();
 
 			nn.setInputLength(784);
@@ -68,6 +78,8 @@ internal static class Mnist {
 
 			nns.Add(nn);
 		}
+		
+		log.recordTopologyFromNetwork(nns[0]);
 
 		return nns;
 	}
@@ -83,6 +95,10 @@ internal static class Mnist {
 
 		EList<double> input = new EList<double>();
 		for (int i = 0; i < 784; i++) input.Add(0);
+		
+		log.startPhase("Training", 
+					   $"MNIST dataset, learning step {learningStep}, correct answer as 1, wrong answer as 0", 
+					   iterations * 1000, parallelNns);
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
@@ -98,14 +114,16 @@ internal static class Mnist {
 				}
 
 				answer[digit] = 1;
-				foreach (NeuralNetwork nn in nns) nn.backpropagate(answer, 0.1d);
+				foreach (NeuralNetwork nn in nns) nn.backpropagate(answer, learningStep);
 				answer[digit] = 0;
 			}
 			Console.Write(".");
 		}
+		
+		log.endPhase();
 	}
 
-	public static NNsData<int> test(List<NeuralNetwork> nns, int iterations) {
+	public static NNsTestResults<int> test(List<NeuralNetwork> nns, int iterations) {
 		FileStream testImages = new FileStream("data/test_imgs", FileMode.Open);
 		FileStream testLabels = new FileStream("data/test_lbls", FileMode.Open);
 		testImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -117,6 +135,10 @@ internal static class Mnist {
 		List<int> correctAnswersAmount = nns.Select(nn => 0).ToList();
 		List<int> correctAnswers = new List<int>(iterations * 1000);
 		List<List<int>> answers = nns.Select(nn => new List<int>()).ToList();
+		
+		log.startPhase("Testing", 
+					   $"MNIST dataset", 
+					   iterations * 1000, parallelNns);
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
@@ -141,8 +163,10 @@ internal static class Mnist {
 			}
 			Console.Write(".");
 		}
+		
+		log.endPhase();
 
-		return new NNsData<int>(correctAnswersAmount, correctAnswers, answers);
+		return new NNsTestResults<int>(correctAnswersAmount, correctAnswers, answers);
 	}
 }
 
