@@ -106,14 +106,14 @@ public class NeuralNetwork {
 	public void backpropagate(EList<double> expectedOutput, double learningFactor) {
 		layers.Last().countDerivatives(expectedOutput);
 
-		for (int i = layers.Count - 1; i > 1; i--)
+		for (int i = layers.Count - 1; i > 0; i--)
 			layers[i].countDerivatives();
 
-		for (int i = layers.Count - 1; i > 1; i--)
+		for (int i = layers.Count - 1; i > 0; i--)
 			layers[i].applyDerivativesToWeights(learningFactor);
 
 		if (!useBiases) return;
-		for (int i = layers.Count - 1; i > 1; i--)
+		for (int i = layers.Count - 1; i > 0; i--)
 			layers[i].applyDerivativesToBiases(learningFactor);
 	}
 
