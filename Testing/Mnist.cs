@@ -30,7 +30,7 @@ internal static class Mnist {
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData testData = test(nns, TEST_SIZE);
+		NNsData<int> testData = test(nns, TEST_SIZE);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing data to excel... ");
@@ -51,8 +51,8 @@ internal static class Mnist {
 			NeuralNetwork nn = new NeuralNetwork();
 
 			nn.setInputLength(784);
-			nn.addDenseLayer(300, new ModifiedSigmoid());
-			nn.addDenseLayer(10, new ModifiedSigmoid());
+			nn.addDenseLayer(300, new Sigmoid());
+			nn.addDenseLayer(10, new Sigmoid());
 			
 			///// LeNet-5 ? 
 			// nn.setInputLength(784);
@@ -79,7 +79,7 @@ internal static class Mnist {
 		trainLabels.Read(new byte[4 * 2], 0, 4 * 2);
 
 		EList<double> answer = new EList<double>();
-		for (int i = 0; i < 10; i++) answer.Add(0.5);
+		for (int i = 0; i < 10; i++) answer.Add(0);
 
 		EList<double> input = new EList<double>();
 		for (int i = 0; i < 784; i++) input.Add(0);
@@ -98,14 +98,14 @@ internal static class Mnist {
 				}
 
 				answer[digit] = 1;
-				foreach (NeuralNetwork nn in nns) nn.backpropagate(answer, 1);
-				answer[digit] = 0.4;
+				foreach (NeuralNetwork nn in nns) nn.backpropagate(answer, 0.1d);
+				answer[digit] = 0;
 			}
 			Console.Write(".");
 		}
 	}
 
-	public static NNsData test(List<NeuralNetwork> nns, int iterations) {
+	public static NNsData<int> test(List<NeuralNetwork> nns, int iterations) {
 		FileStream testImages = new FileStream("data/test_imgs", FileMode.Open);
 		FileStream testLabels = new FileStream("data/test_lbls", FileMode.Open);
 		testImages.Read(new byte[4 * 4], 0, 4 * 4);
@@ -114,12 +114,14 @@ internal static class Mnist {
 		EList<double> input = new EList<double>();
 		for (int i = 0; i < 784; i++) input.Add(0);
 
-		List<int> numOfGood = nns.Select(nn => 0).ToList();
-		List<List<KeyValuePair<int, int>>> memory = nns.Select(nn => new List<KeyValuePair<int, int>>()).ToList();
+		List<int> correctAnswersAmount = nns.Select(nn => 0).ToList();
+		List<int> correctAnswers = new List<int>(iterations * 1000);
+		List<List<int>> answers = nns.Select(nn => new List<int>()).ToList();
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
 				int digit = Utils.getNextByte(testLabels);
+				correctAnswers.Add(digit);
 
 				byte[] byteInput = new byte[784];
 				testImages.Read(byteInput, 0, 784);
@@ -132,25 +134,15 @@ internal static class Mnist {
 					nn.run();
 
 					int answer = nn.getMaxIndexInOutput();
-					if (answer == digit) numOfGood[nnIndex]++;
+					if (answer == digit) correctAnswersAmount[nnIndex]++;
 
-					memory[nnIndex].Add(new KeyValuePair<int, int>(answer, digit));
+					answers[nnIndex].Add(answer);
 				}
 			}
 			Console.Write(".");
 		}
 
-		return new NNsData(numOfGood, memory);
-	}
-}
-
-public class NNsData {
-	public List<int> numOfGood { get; }
-	public List<List<KeyValuePair<int, int>>> memory { get; }
-
-	public NNsData(List<int> numOfGood, List<List<KeyValuePair<int, int>>> memory) {
-		this.numOfGood = numOfGood;
-		this.memory = memory;
+		return new NNsData<int>(correctAnswersAmount, correctAnswers, answers);
 	}
 }
 

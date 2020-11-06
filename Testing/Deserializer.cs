@@ -22,7 +22,7 @@ public class Deserializer {
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData testData = Mnist.test(new List<NeuralNetwork> {nn}, TEST_SIZE);
+		NNsData<int> testData = Mnist.test(new List<NeuralNetwork> {nn}, TEST_SIZE);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing data to excel... ");

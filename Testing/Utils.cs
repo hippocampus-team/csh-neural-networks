@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using NeuralNetworks;
 using OfficeOpenXml;
@@ -13,36 +14,41 @@ public class Utils {
 		return digit[0];
 	}
 
-	public static void writeToExcel(NNsData data, string rootPath) {
+	public static void writeToExcel<T>(NNsData<T> data, string rootPath) {
 		createRootResultsDirectoryIfNotExists(rootPath);
 
-		List<int> numOfGood = data.numOfGood;
-		List<List<KeyValuePair<int, int>>> memory = data.memory;
+		List<int> correctAnswersAmount = data.correctAnswersAmount;
+		List<T> correctAnswers = data.correctAnswers;
+		List<List<T>> answers = data.answers;
 
 		ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 		using ExcelPackage package = new ExcelPackage(new FileInfo($"{rootPath}/test_results.xlsx"));
 		ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Results");
 
-		for (int i = 0; i < memory.Count; i++) {
-			int currentColumn = i * 2 + 1;
+		worksheet.Cells[1, 1].Value = "EXP";
+		worksheet.Cells[1, 1].Style.Font.Bold = true;
+		worksheet.Cells[2, 1].Value = correctAnswers.Count;
+		worksheet.Column(1).Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
-			worksheet.Cells[1, currentColumn].Value = "ANS" + (i + 1);
+		for (int i = 0; i < correctAnswers.Count; i++)
+			worksheet.Cells[i + 4, 1].Value = correctAnswers[i];
+
+		for (int nnIndex = 0; nnIndex < answers.Count; nnIndex++) {
+			int currentColumn = nnIndex + 2;
+
+			worksheet.Cells[1, currentColumn].Value = "NN " + (nnIndex + 1);
 			worksheet.Cells[1, currentColumn].Style.Font.Bold = true;
-			worksheet.Cells[1, currentColumn + 1].Value = "EXP" + (i + 1);
-			worksheet.Cells[1, currentColumn + 1].Style.Font.Bold = true;
 
-			worksheet.Cells[2, currentColumn].Value = numOfGood[i];
-			worksheet.Cells[2, currentColumn + 1].Value = memory[i].Count;
-			worksheet.Cells[3, currentColumn + 1].Value = numOfGood[i] * 1d / memory[i].Count;
+			worksheet.Cells[2, currentColumn].Value = correctAnswersAmount[nnIndex];
+			worksheet.Cells[3, currentColumn].Value = correctAnswersAmount[nnIndex] * 1d / answers[nnIndex].Count;
 
-			for (int index = 0; index < memory[i].Count; index++) {
-				(int key, int value) = memory[i][index];
-
-				worksheet.Cells[4 + index, currentColumn].Value = key;
-				worksheet.Cells[4 + index, currentColumn + 1].Value = value;
+			for (int answerIndex = 0; answerIndex < answers[nnIndex].Count; answerIndex++) {
+				worksheet.Cells[4 + answerIndex, currentColumn].Value = answers[nnIndex][answerIndex];
+				if (!answers[nnIndex][answerIndex].Equals(correctAnswers[answerIndex])) 
+					worksheet.Cells[4 + answerIndex, currentColumn].Style.Font.Color.SetColor(Color.Red);
 			}
 
-			worksheet.Column(currentColumn + 1).Style.Border.Right.Style = ExcelBorderStyle.Thin;
+			worksheet.Column(currentColumn).Style.Border.Right.Style = ExcelBorderStyle.Thin;
 		}
 
 		package.Save();
@@ -57,6 +63,18 @@ public class Utils {
 
 	private static void createRootResultsDirectoryIfNotExists(string rootPath) {
 		if (!Directory.Exists(rootPath)) Directory.CreateDirectory(rootPath);
+	}
+}
+
+public class NNsData <T> {
+	public List<int> correctAnswersAmount { get; }
+	public List<T> correctAnswers { get; }
+	public List<List<T>> answers { get; }
+
+	public NNsData(List<int> correctAnswersAmount, List<T> correctAnswers, List<List<T>> answers) {
+		this.correctAnswersAmount = correctAnswersAmount;
+		this.correctAnswers = correctAnswers;
+		this.answers = answers;
 	}
 }
 
