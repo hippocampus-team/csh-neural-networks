@@ -6,36 +6,50 @@ using NeuralNetworks;
 namespace Testing {
 
 public class Deserializer {
-	private const int TEST_SIZE = 4;
+	private const int testSize = 10;
 	
 	public static void run() {
-		Console.Write("Hello. Enter experiment title: ");
+		Console.Write("Hello. Enter experiments title: ");
 		string experimentTitle = Console.ReadLine();
-		string experimentPath = $"./experiments/{experimentTitle}";
+		
+		Console.Write("Enter experiments description: ");
+		string experimentDescription = Console.ReadLine();
+		
+		string rootPath = $"./experiments/{experimentTitle}";
+		ExperimentLog log = new ExperimentLog(experimentTitle, experimentDescription);
 		
 		Console.Write("Enter config files name: ./experiments/loads/");
 		string loadName = Console.ReadLine();
 
 		Console.Write("Deserialization of NN...");
-		NeuralNetwork nn = readNN($"./experiments/loads/{loadName}");
+		NeuralNetwork nn = deserialize($"./experiments/loads/{loadName}", log);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Testing started!");
 		Console.Write("In progress");
-		NNsData<int> testData = Mnist.test(new List<NeuralNetwork> {nn}, TEST_SIZE);
+		NNsTestResults<int> testResults = Mnist.test(new List<NeuralNetwork> {nn}, testSize, log);
+		Console.WriteLine(" Done.");
+		
+		Console.Write("Saving log... ");
+		Utils.endLogAndWriteToFile(log, rootPath);
 		Console.WriteLine(" Done.");
 
 		Console.Write("Writing data to excel... ");
-		Utils.writeToExcel(testData, experimentPath);
+		Utils.writeToExcel(testResults, rootPath);
 		Console.WriteLine(" Done.");
 
 		Console.WriteLine("Process is completed and result is saved in excel file.");
 		Console.ReadKey();
 	}
 
-	private static NeuralNetwork readNN(string path) {
+	private static NeuralNetwork deserialize(string path, ExperimentLog log = null) {
+		log?.startPhase("Deserialization", $"source file {path}", 0, 1);
 		string json = File.ReadAllText(path);
-		return NeuralNetwork.deserialize(json);
+		NeuralNetwork nn = NeuralNetwork.deserialize(json);
+		log?.endPhase();
+		
+		log?.recordTopologyFromNetwork(nn);
+		return nn;
 	}
 }
 
