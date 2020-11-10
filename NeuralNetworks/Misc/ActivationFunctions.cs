@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NeuralNetworks {
+namespace NeuralNetworks.Misc {
 
 public interface ActivationFunction {
 	double count(double value);

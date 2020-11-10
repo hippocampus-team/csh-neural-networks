@@ -1,13 +1,14 @@
-﻿using NeuralNetworks.Misc;
+﻿using System.Collections.Generic;
+using NeuralNetworks.Misc;
 
 namespace NeuralNetworks.Units {
 
 public class PrunableNeuron : Neuron, TransformableToNormalNeuron {
-	private EList<double> weightsMemoryDerivitives;
+	private List<double> weightsMemoryDerivitives;
 
-	public PrunableNeuron(EList<Unit> inputUnits, ActivationFunction activationFunction) 
+	public PrunableNeuron(List<Unit> inputUnits, ActivationFunction activationFunction) 
 		: base(inputUnits, activationFunction) {
-		weightsMemoryDerivitives = new EList<double>(inputUnits.columns);
+		weightsMemoryDerivitives = new List<double>();
 
 		for (int i = 0; i < inputUnits.Count; i++) 
 			weightsMemoryDerivitives.Add(0);
@@ -23,7 +24,7 @@ public class PrunableNeuron : Neuron, TransformableToNormalNeuron {
 			weights[i] = original.weights[i];
 	}
 	
-	public override void countDerivatives() {
+	public override void countDerivativesOfInputUnits() {
 		for (int i = 0; i < inputUnits.Count; i++) {
 			double derivedWeight = derivative * weights[i];
 			inputUnits[i].derivative += derivedWeight * activationFunction.countDerivative(value);

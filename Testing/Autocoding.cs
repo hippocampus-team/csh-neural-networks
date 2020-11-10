@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NeuralNetworks;
 using NeuralNetworks.Misc;
 
@@ -14,11 +15,10 @@ internal static class Autocoding {
 		nn.addDenseLayer(16, new Sigmoid());
 		nn.addDenseLayer(testNum, new Sigmoid());
 
-		nn.fillRandomWeights();
-		nn.fillRandomBiases();
+		nn.fillPropertiesRandomly();
 
 		Random random = new Random(Guid.NewGuid().GetHashCode());
-		EList<double> data = new EList<double>();
+		List<double> data = new List<double>();
 		for (int i = 0; i < testNum; i++) data.Add(0);
 
 		for (int i = 0; i < 1000; i++) {
@@ -28,7 +28,7 @@ internal static class Autocoding {
 			nn.run();
 			nn.backpropagate(data, 1);
 
-			Console.WriteLine($"Iteration {i} has cost {nn.getTotalCost(data.toList())}");
+			Console.WriteLine($"Iteration {i} has cost {nn.getTotalCost(data)}");
 		}
 	}
 }

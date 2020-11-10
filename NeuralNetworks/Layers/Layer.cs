@@ -1,57 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NeuralNetworks.Misc;
+﻿using System.Collections.Generic;
 using NeuralNetworks.Units;
 using Newtonsoft.Json.Linq;
 
 namespace NeuralNetworks.Layers {
 
 public abstract class Layer {
-	public abstract EList<Unit> input { get; protected set; }
-	public abstract EList<Unit> output { get; protected set; }
-	public abstract IEnumerable<Unit> neurons { get; }
+	public abstract LayerConnection input { get; protected set; }
+	public abstract LayerConnection output { get; protected set; }
+	public abstract IEnumerable<Unit> units { get; }
 
 	public abstract void count();
 
-	public abstract void fillWeightsRandom();
-	public abstract void fillBiasesRandom();
+	public abstract void fillPropertiesRandomly();
 
-	public abstract void countDerivatives();
-	public abstract void countDerivatives(EList<double> expectedOutput);
+	public abstract void countDerivativesOfPreviousLayer();
+	public abstract void countDerivatives(List<double> expectedOutput);
 
 	public abstract void applyDerivativesToWeights(double learningFactor);
 	public abstract void applyDerivativesToBiases(double learningFactor);
 
-	public abstract EList<double> getInputValues();
-	public abstract EList<double> getOutputValues();
+	public abstract List<double> getInputValues();
+	public abstract List<double> getOutputValues();
 	
 	public virtual Unit this[int neuronIndex] => input[neuronIndex];
+
+	public abstract JObject toJObject();
+	public abstract Layer fillFromJObject(JObject json);
+
+	public void setUnitsIds(int layerIndex) {
+		int counter = 0;
+		
+		foreach (Unit unit in units) {
+			unit.id = $"{layerIndex}_{counter}";
+			counter++;
+		}
+	}
+}
+
+public abstract class SameInputOutputLayer : Layer {
+	public sealed override LayerConnection input { get; protected set; }
+	public sealed override LayerConnection output { get => input; protected set => input = value; }
+	public sealed override List<double> getOutputValues() => getInputValues();
 	
-	public virtual JObject toJObject() {
+	public override JObject toJObject() {
 		JObject layer = new JObject {["type"] = GetType().Name};
 
 		JArray unitsArray = new JArray();
-		foreach (Unit unit in neurons) unitsArray.Add(unit.toJObject());
+		foreach (Unit unit in input.enumerable) unitsArray.Add(unit.toJObject());
 		layer["units"] = unitsArray;
 
 		return layer;
 	}
-	public virtual Layer fillFromJObject(JObject json) {
-		JArray unitsJArray = json["units"]!.Value<JArray>();
+}
 
-		EList<Unit> units = 
-			new EList<Unit>((from JObject unitJson in unitsJArray 
-							 let typeName = unitJson["type"]!.Value<string>() 
-							 let unitType = Type.GetType("NeuralNetworks.Units." + typeName) 
-							 let initUnitMethod = unitType!.GetMethod("fillFromJObject") 
-							 let unit = (Unit) unitType.GetMethod("getEmpty")?.Invoke(null, null) 
-							 select unit.fillFromJObject(unitJson)).ToList());
+public interface LayerConnection {
+	public IEnumerable<Unit> enumerable { get; }
+	
+	public Unit this[int index] { get; set; }
+	public Unit this[int index, int depthIndex] { get; set; }
+	
+	public int length { get; }
+	public int depth { get; }
+}
 
-		input = units;
-		output = units;
-		return this;
-	}
+public abstract class NoDepthLayerConnection : LayerConnection {
+	public abstract IEnumerable<Unit> enumerable { get; }
+	
+	public abstract Unit this[int index] { get; set; }
+	public Unit this[int index, int depthIndex] { get => this[index]; set => this[index] = value; }
+	
+	public abstract int length { get; }
+	public int depth => 1;
 }
 
 }

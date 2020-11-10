@@ -6,36 +6,45 @@ namespace NeuralNetworks.Misc {
 public class EList<T> : IList<T> {
 	private readonly List<T> array;
 
-	public T this[int row, int column] {
-		get => array[column * rows + row];
-		set => array[column * rows + row] = value;
+	public T this[int index, int depthIndex] {
+		get => array[depthIndex * length + index];
+		set => array[depthIndex * length + index] = value;
 	}
 
-	public int rows => array.Count / columns;
-	public int columns { get; }
+	public int length => array.Count / depth;
+	public int depth { get; }
 
 	public EList() : this(1) { }
 
-	public EList(int columns) {
+	public EList(int depth) {
 		array = new List<T>();
-		this.columns = columns;
+		this.depth = depth;
 	}
 
 	public EList(List<T> array) {
 		this.array = array;
-		columns = 1;
+		depth = 1;
 	}
 
 	public EList(List<List<T>> matrix) {
 		array = new List<T>();
-		columns = matrix.Count;
+		depth = matrix.Count;
 
-		foreach (List<T> row in matrix) array.AddRange(row);
+		foreach (List<T> arr in matrix) array.AddRange(arr);
 	}
 
 	public T this[int index] {
 		get => array[index];
 		set => array[index] = value;
+	}
+
+	public List<T> getListOfDepthLevel(int depthLevel) {
+		List<T> list = new List<T>(length);
+
+		for (int i = depthLevel * length; i < (depthLevel + 1) * length; i++) 
+			list.Add(array[i]);
+
+		return list;
 	}
 
 	public int Count => array.Count;
@@ -51,7 +60,7 @@ public class EList<T> : IList<T> {
 	public bool Contains(T item) => array.Contains(item);
 	public void CopyTo(T[] copyArray, int arrayIndex) => array.CopyTo(copyArray, arrayIndex);
 	public bool Remove(T item) => array.Remove(item);
-	public List<T> toList() => array;
+	public List<T> toList() => array; // Actually asList()
 }
 
 }

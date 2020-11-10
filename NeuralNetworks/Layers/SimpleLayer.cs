@@ -1,82 +1,104 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NeuralNetworks.Misc;
 using NeuralNetworks.Units;
+using Newtonsoft.Json.Linq;
 
 namespace NeuralNetworks.Layers {
 
-public class SimpleLayer : Layer {
-	public sealed override EList<Unit> input { get; protected set; }
-	public sealed override EList<Unit> output { get; protected set; }
-	public override IEnumerable<Unit> neurons => input;
+public class SimpleLayer : SameInputOutputLayer {
+	public override IEnumerable<Unit> units => nodes;
+
+	private readonly List<Node> nodes;
 
 	public SimpleLayer(int n) {
-		EList<Unit> nodes = new EList<Unit>();
+		nodes = new List<Node>();
 
 		for (int i = 0; i < n; i++)
 			nodes.Add(new Node());
 
-		input = nodes;
-		output = nodes;
+		input = new SimpleLayerConnection(nodes);
 	}
 
-	public SimpleLayer(List<double> values) {
-		EList<Unit> nodes = new EList<Unit>();
+	public SimpleLayer(IEnumerable<double> values) {
+		nodes = new List<Node>();
 
 		foreach (double value in values)
 			nodes.Add(new Node(value));
 
-		input = nodes;
-		output = nodes;
+		input = new SimpleLayerConnection(nodes);
 	}
 
-	public SimpleLayer(Layer inputLayer) {
-		EList<Unit> nodes = new EList<Unit>();
+	public SimpleLayer(LayerConnection inputConnection) {
+		nodes = new List<Node>();
 
-		foreach (Unit unit in inputLayer.output)
+		foreach (Unit unit in inputConnection.enumerable)
 			nodes.Add(new ReferNode(unit));
 
-		input = nodes;
-		output = nodes;
+		input = new SimpleLayerConnection(nodes);
 	}
 
 	public override void count() {
-		foreach (Unit unit in output)
-			((Node) unit).count();
+		foreach (Node node in nodes)
+			node.count();
 	}
 
-	public override void countDerivatives() {
-		foreach (Unit unit in input)
-			unit.countDerivatives();
+	public override void countDerivativesOfPreviousLayer() {
+		foreach (Node node in nodes)
+			node.countDerivativesOfInputUnits();
 	}
 
-	public override void countDerivatives(EList<double> expectedOutput) {
-		for (int i = 0; i < output.Count; i++)
-			output[i].derivative = expectedOutput[i] - output[i].value;
+	public override void countDerivatives(List<double> expectedOutput) {
+		for (int i = 0; i < nodes.Count; i++)
+			nodes[i].countDerivative(expectedOutput[i]);
 	}
 
-	public override EList<double> getInputValues() {
-		EList<double> values = new EList<double>();
+	public override List<double> getInputValues() {
+		List<double> values = new List<double>();
 
-		foreach (Unit unit in input)
-			values.Add(unit.value);
+		foreach (Node node in nodes) 
+			values.Add(node.value);
 
 		return values;
 	}
 
-	public override EList<double> getOutputValues() {
-		EList<double> values = new EList<double>();
-
-		foreach (Unit unit in output)
-			values.Add(unit.value);
-
-		return values;
-	}
-
-	public override void fillWeightsRandom() { }
-	public override void fillBiasesRandom() { }
+	public override void fillPropertiesRandomly() { }
 	public override void applyDerivativesToWeights(double learningFactor) { }
 	public override void applyDerivativesToBiases(double learningFactor) { }
+	
+	public override Layer fillFromJObject(JObject json) {
+		JArray unitsJArray = json["units"]!.Value<JArray>();
+		
+		foreach (JToken unitToken in unitsJArray) {
+			Unit unit = JFactory.constructUnit((JObject) unitToken);
+			
+			if (!(unit is Node)) throw new 
+				ArgumentException("Only nodes are allowed in simple layers. Failed at " + unitToken.Path);
+			
+			nodes.Add((Node) unit);
+		}
+		
+		return this;
+	}
+	
 	public static SimpleLayer getEmpty() => new SimpleLayer(0);
+	
+	private class SimpleLayerConnection : NoDepthLayerConnection {
+		private readonly List<Node> nodes;
+		
+		public override IEnumerable<Unit> enumerable => nodes;
+
+		public override Unit this[int index] {
+			get => nodes[index];
+			set => nodes[index] = (Node) value;
+		}
+
+		public override int length => nodes.Count;
+
+		public SimpleLayerConnection(List<Node> nodes) {
+			this.nodes = nodes;
+		}
+	}
 }
 
 }

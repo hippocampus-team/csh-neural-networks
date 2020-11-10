@@ -1,6 +1,6 @@
 ﻿using NeuralNetworks.Units;
 
-namespace NeuralNetworks {
+namespace NeuralNetworks.Misc {
 
 public class ConstructionNeuronIndexer {
 	public static ConstructionNeuronIndexer activeIndexer { get; private set; }

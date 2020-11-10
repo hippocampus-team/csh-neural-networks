@@ -61,18 +61,8 @@ internal static class Mnist {
 			nn.setInputLength(784);
 			nn.addDenseLayer(300, new Sigmoid());
 			nn.addDenseLayer(10, new Sigmoid());
-			
-			///// LeNet-5 ? 
-			// nn.setInputLength(784);
-			// nn.addPoolingLayer(new Filter(2), 2, PoolingNode.PoolingMethod.average);
-			// nn.addConvolutionalLayer(new Filter(5), 16, 1);
-			// nn.addPoolingLayer(new Filter(2), 2, PoolingNode.PoolingMethod.average);
-			// nn.addDenseLayer(120);
-			// nn.addDenseLayer(84);
-			// nn.addDenseLayer(10);
 
-			nn.fillRandomWeights();
-			nn.fillRandomBiases();
+			nn.fillPropertiesRandomly();
 
 			nns.Add(nn);
 		}
@@ -88,10 +78,10 @@ internal static class Mnist {
 		trainImages.Read(new byte[4 * 4], 0, 4 * 4);
 		trainLabels.Read(new byte[4 * 2], 0, 4 * 2);
 
-		EList<double> answer = new EList<double>();
+		List<double> answer = new List<double>();
 		for (int i = 0; i < 10; i++) answer.Add(0);
 
-		EList<double> input = new EList<double>();
+		List<double> input = new List<double>();
 		for (int i = 0; i < 784; i++) input.Add(0);
 		
 		log?.startPhase("Training", 
@@ -127,7 +117,7 @@ internal static class Mnist {
 		testImages.Read(new byte[4 * 4], 0, 4 * 4);
 		testLabels.Read(new byte[4 * 2], 0, 4 * 2);
 
-		EList<double> input = new EList<double>();
+		List<double> input = new List<double>();
 		for (int i = 0; i < 784; i++) input.Add(0);
 
 		List<int> correctAnswersAmount = nns.Select(nn => 0).ToList();

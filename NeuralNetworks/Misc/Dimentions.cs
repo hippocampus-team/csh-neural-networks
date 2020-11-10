@@ -14,9 +14,6 @@ public class MatrixModel {
 		this.stride = stride;
 	}
 
-	public MatrixModel(EList<Unit> layer, int stride) 
-		: this((int) Math.Floor(Math.Sqrt(layer.rows)), stride) { }
-
 	public int filterOutputsCount(Filter filter) 
 		=> (int) Math.Pow((size - filter.size) / stride + 1, 2);
 
