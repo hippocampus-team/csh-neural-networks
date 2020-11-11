@@ -11,15 +11,14 @@ public class DenseLayer : SameInputOutputLayer {
 
 	private readonly List<Neuron> neurons;
 
-	private DenseLayer() { }
-
-	public DenseLayer(LayerConnection inputConnection, int length, ActivationFunction activationFunction) {
+	private DenseLayer() {
 		neurons = new List<Neuron>();
+		input = new DenseLayerConnection(neurons);
+	}
 
+	public DenseLayer(LayerConnection inputConnection, int length, ActivationFunction activationFunction) : this() {
 		for (int i = 0; i < length; i++)
 			neurons.Add(new Neuron(inputConnection.enumerable, activationFunction));
-
-		input = new DenseLayerConnection(neurons);
 	}
 
 	public override void count() {

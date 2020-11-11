@@ -13,7 +13,7 @@ public class ConvolutionalLayer : SameInputOutputLayer {
 	private List<List<Filter>> kernels { get; }
 	private MatrixModel model { get; }
 
-	private ConvolutionalLayer() { }
+	private ConvolutionalLayer() => throw new NotImplementedException();
 
 	public ConvolutionalLayer(LayerConnection inputConnection, Filter filter, int filtersAmount, int stride, 
 							  ActivationFunction activationFunction) {

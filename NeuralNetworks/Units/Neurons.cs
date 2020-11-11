@@ -92,7 +92,7 @@ public class Neuron : Unit {
 			weights.Add(weightJson.Value<double>());
 
 		activationFunction = (ActivationFunction) 
-			Activator.CreateInstance(Type.GetType("NeuralNetworks." + json["af"]!.Value<string>())!);
+			Activator.CreateInstance(Type.GetType("NeuralNetworks.Misc." + json["af"]!.Value<string>())!);
 
 		return this;
 	}

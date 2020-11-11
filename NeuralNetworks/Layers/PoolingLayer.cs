@@ -13,7 +13,7 @@ public class PoolingLayer : SameInputOutputLayer {
 	private MatrixModel model { get; }
 	private Filter mask { get; }
 
-	private PoolingLayer() { }
+	private PoolingLayer() => throw new NotImplementedException();
 
 	public PoolingLayer(LayerConnection inputConnection, Filter mask, int stride, PoolingMethod method) {
 		model = new MatrixModel(inputConnection.length, stride);
