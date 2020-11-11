@@ -4,8 +4,6 @@ using NeuralNetworks.Misc;
 namespace NeuralNetworks.Units {
 
 public class Node : Unit {
-	public override double inactivatedValue { get => value; protected set => this.value = value; }
-	
 	public Node() : this(0) { }
 	public Node(double value) {
 		this.value = value;

@@ -6,10 +6,6 @@ public abstract class Unit {
 	public string id { get; set; }
 	public double value { get; set; }
 	public double derivative { get; set; }
-	
-	// For connectability with neuron
-	public double activatedValue => value;
-	public abstract double inactivatedValue { get; protected set; }
 
 	public abstract void count();
 	public abstract void countDerivativesOfInputUnits();

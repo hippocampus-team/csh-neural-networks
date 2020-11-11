@@ -51,10 +51,9 @@ public class PoolingLayer : SameInputOutputLayer {
 			node.countDerivativesOfInputUnits();
 	}
 
-	public override void fillPropertiesRandomly() { }
+	public override void fillParametersRandomly() { }
 	public override void countDerivatives(List<double> expectedOutput) { }
-	public override void applyDerivativesToWeights(double learningFactor) { }
-	public override void applyDerivativesToBiases(double learningFactor) { }
+	public override void applyDerivativesToParameters(double learningFactor) { }
 	
 	public override List<double> getInputValues() => throw new NotImplementedException();
 	public override Layer fillFromJObject(JObject json) => throw new NotImplementedException();

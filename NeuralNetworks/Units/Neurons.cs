@@ -8,10 +8,13 @@ namespace NeuralNetworks.Units {
 
 public class Neuron : Unit {
 	public List<Unit> inputUnits { get; protected set; }
+	
 	public List<double> weights { get; private set; }
 	public double bias { get; set; }
 	public ActivationFunction activationFunction { get; set; }
-	public override double inactivatedValue { get; protected set; }
+	
+	private double inactivatedValue;
+	private double derivativeOfInactivated;
 
 	protected Neuron() { }
 	public Neuron(IEnumerable<Unit> inputUnits, ActivationFunction activationFunction) {
@@ -25,34 +28,34 @@ public class Neuron : Unit {
 	}
 
 	public override void count() {
-		double weightedSum = 0;
+		double weightedSum = bias;
 		for (int i = 0; i < inputUnits.Count; i++)
-			weightedSum += inputUnits[i].activatedValue * weights[i];
-		value = activationFunction.count(weightedSum + bias);
+			weightedSum += inputUnits[i].value * weights[i];
+
+		inactivatedValue = weightedSum;
+		value = activationFunction.count(weightedSum);
 		
 		// Reset derivative after each iteration
 		derivative = 0;
 	}
-	
-	// Derivative var in neuron is a derivative of inactivated value in relation to the cost function
 
-	// Actually counts derivatives of units in previous layer
 	public override void countDerivativesOfInputUnits() {
+		derivativeOfInactivated = derivative * activationFunction.countDerivative(inactivatedValue);
+		
 		for (int i = 0; i < inputUnits.Count; i++)
-			inputUnits[i].derivative += derivative * weights[i] * activationFunction.countDerivative(inputUnits[i].inactivatedValue);
+			inputUnits[i].derivative += derivativeOfInactivated * weights[i];
 	}
 	
 	public override void countDerivative(double expectedOutput) {
-		derivative = 2 * (value - expectedOutput) * activationFunction.countDerivative(inactivatedValue);
+		derivative = 2 * (value - expectedOutput);
 	}
 
-	public virtual void applyDerivativeToWeights(double learningFactor) {
+	public virtual void applyDerivativeToParameters(double learningFactor) {
 		for (int i = 0; i < weights.Count; i++)
-			weights[i] += derivative * inputUnits[i].activatedValue * learningFactor;
+			weights[i] += derivativeOfInactivated * inputUnits[i].value * learningFactor;
+		
+		bias += derivativeOfInactivated * learningFactor;
 	}
-
-	public virtual void applyDerivativeToBias(double learningFactor) =>
-		bias += derivative * learningFactor;
 
 	public override JObject toJObject() {
 		JObject unit = base.toJObject();
@@ -118,20 +121,9 @@ public class ConvolutionalNeuron : Neuron {
 		value = activationFunction.count(weightedSum + bias);
 	}
 
-	public override void countDerivativesOfInputUnits() {
-		for (int i = 0; i < filter.values.Count; i++) {
-			inputUnits[indexes[i]].derivative +=
-				derivative * activationFunction.countDerivative(value) * filter.values[i];
-		}
-	}
+	public override void countDerivativesOfInputUnits() => throw new NotImplementedException();
+	public override void applyDerivativeToParameters(double learningFactor) => throw new NotImplementedException();
 
-	public override void applyDerivativeToWeights(double learningFactor) {
-		for (int i = 0; i < filter.values.Count; i++) {
-			filter.values[i] += learningFactor * derivative * inputUnits[indexes[i]].value 
-								* activationFunction.countDerivative(value);
-		}
-	}
-	
 	public new static ConvolutionalNeuron getEmpty() => new ConvolutionalNeuron();
 }
 

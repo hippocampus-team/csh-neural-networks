@@ -11,13 +11,11 @@ public abstract class Layer {
 
 	public abstract void count();
 
-	public abstract void fillPropertiesRandomly();
+	public abstract void fillParametersRandomly();
 
 	public abstract void countDerivativesOfPreviousLayer();
 	public abstract void countDerivatives(List<double> expectedOutput);
-
-	public abstract void applyDerivativesToWeights(double learningFactor);
-	public abstract void applyDerivativesToBiases(double learningFactor);
+	public abstract void applyDerivativesToParameters(double learningFactor);
 
 	public abstract List<double> getInputValues();
 	public abstract List<double> getOutputValues();

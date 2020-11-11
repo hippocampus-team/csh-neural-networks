@@ -27,7 +27,7 @@ public class DenseLayer : SameInputOutputLayer {
 			neuron.count();
 	}
 
-	public override void fillPropertiesRandomly() {
+	public override void fillParametersRandomly() {
 		Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
 		foreach (Neuron neuron in neurons)
@@ -48,14 +48,9 @@ public class DenseLayer : SameInputOutputLayer {
 			neurons[i].countDerivative(expectedOutput[i]);
 	}
 
-	public override void applyDerivativesToWeights(double learningFactor) {
+	public override void applyDerivativesToParameters(double learningFactor) {
 		foreach (Neuron neuron in neurons)
-			neuron.applyDerivativeToWeights(learningFactor);
-	}
-
-	public override void applyDerivativesToBiases(double learningFactor) {
-		foreach (Neuron neuron in neurons)
-			neuron.applyDerivativeToBias(learningFactor);
+			neuron.applyDerivativeToParameters(learningFactor);
 	}
 
 	public override List<double> getInputValues() {

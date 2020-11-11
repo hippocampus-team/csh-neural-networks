@@ -62,9 +62,8 @@ public class SimpleLayer : SameInputOutputLayer {
 		return values;
 	}
 
-	public override void fillPropertiesRandomly() { }
-	public override void applyDerivativesToWeights(double learningFactor) { }
-	public override void applyDerivativesToBiases(double learningFactor) { }
+	public override void fillParametersRandomly() { }
+	public override void applyDerivativesToParameters(double learningFactor) { }
 	
 	public override Layer fillFromJObject(JObject json) {
 		JArray unitsJArray = json["units"]!.Value<JArray>();

@@ -58,7 +58,7 @@ public class ConvolutionalLayer : SameInputOutputLayer {
 			neuron.count();
 	}
 
-	public override void fillPropertiesRandomly() {
+	public override void fillParametersRandomly() {
 		Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
 		for (int i = 0; i < kernels.Count; i++)
@@ -77,14 +77,9 @@ public class ConvolutionalLayer : SameInputOutputLayer {
 
 	public override void countDerivatives(List<double> expectedOutput) { }
 
-	public override void applyDerivativesToWeights(double learningFactor) {
+	public override void applyDerivativesToParameters(double learningFactor) {
 		foreach (ConvolutionalNeuron neuron in neurons)
-			neuron.applyDerivativeToWeights(learningFactor);
-	}
-
-	public override void applyDerivativesToBiases(double learningFactor) {
-		foreach (ConvolutionalNeuron neuron in neurons)
-			neuron.applyDerivativeToBias(learningFactor);
+			neuron.applyDerivativeToParameters(learningFactor);
 	}
 
 	public override List<double> getInputValues() => throw new NotImplementedException();

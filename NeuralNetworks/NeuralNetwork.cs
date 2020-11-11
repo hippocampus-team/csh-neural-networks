@@ -12,7 +12,6 @@ public class NeuralNetwork {
 	public string description { get; set; }
 	
 	public List<Layer> layers { get; private set; }
-	public bool useBiases { get; }
 
 	public Layer this[int layer] => layers[layer];
 	
@@ -22,7 +21,6 @@ public class NeuralNetwork {
 		this.name = name;
 		description = "";
 		layers = new List<Layer>();
-		useBiases = true;
 	}
 
 	public void run() {
@@ -51,7 +49,7 @@ public class NeuralNetwork {
 
 	public void fillPropertiesRandomly() {
 		foreach (Layer layer in layers)
-			layer.fillPropertiesRandomly();
+			layer.fillParametersRandomly();
 	}
 
 	public void putData(List<double> data) {
@@ -92,11 +90,7 @@ public class NeuralNetwork {
 			layers[i].countDerivativesOfPreviousLayer();
 
 		for (int i = layers.Count - 1; i >= 0; i--)
-			layers[i].applyDerivativesToWeights(learningFactor);
-
-		if (!useBiases) return;
-		for (int i = layers.Count - 1; i >= 0; i--)
-			layers[i].applyDerivativesToBiases(learningFactor);
+			layers[i].applyDerivativesToParameters(learningFactor);
 	}
 
 	public string serialize() {
