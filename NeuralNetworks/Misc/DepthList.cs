@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NeuralNetworks.Misc {
 
-public class EList<T> : IList<T> {
+public class DepthList<T> : IList<T> {
 	private readonly List<T> array;
 
 	public T this[int index, int depthIndex] {
@@ -14,19 +14,19 @@ public class EList<T> : IList<T> {
 	public int length => array.Count / depth;
 	public int depth { get; }
 
-	public EList() : this(1) { }
+	public DepthList() : this(1) { }
 
-	public EList(int depth) {
+	public DepthList(int depth) {
 		array = new List<T>();
 		this.depth = depth;
 	}
 
-	public EList(List<T> array) {
+	public DepthList(List<T> array) {
 		this.array = array;
 		depth = 1;
 	}
 
-	public EList(List<List<T>> matrix) {
+	public DepthList(List<List<T>> matrix) {
 		array = new List<T>();
 		depth = matrix.Count;
 

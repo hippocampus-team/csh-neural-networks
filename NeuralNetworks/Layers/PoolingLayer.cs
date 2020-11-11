@@ -9,7 +9,7 @@ namespace NeuralNetworks.Layers {
 public class PoolingLayer : SameInputOutputLayer {
 	public override IEnumerable<Unit> units => nodes;
 
-	private readonly EList<PoolingNode> nodes;
+	private readonly DepthList<PoolingNode> nodes;
 	private MatrixModel model { get; }
 	private Filter mask { get; }
 
@@ -19,7 +19,7 @@ public class PoolingLayer : SameInputOutputLayer {
 		model = new MatrixModel(inputConnection.length, stride);
 		this.mask = mask;
 
-		nodes = new EList<PoolingNode>(inputConnection.depth);
+		nodes = new DepthList<PoolingNode>(inputConnection.depth);
 
 		int filterOutputsCount = model.filterOutputsCount(mask);
 		int filterLineCount = model.filterLineCount(mask);
@@ -62,7 +62,7 @@ public class PoolingLayer : SameInputOutputLayer {
 	public static PoolingLayer getEmpty() => new PoolingLayer();
 	
 	private class PoolingLayerConnection : LayerConnection {
-		private readonly EList<PoolingNode> nodes;
+		private readonly DepthList<PoolingNode> nodes;
 		
 		public IEnumerable<Unit> enumerable => nodes.toList();
 
@@ -79,7 +79,7 @@ public class PoolingLayer : SameInputOutputLayer {
 		public int length => nodes.length;
 		public int depth => nodes.depth;
 
-		public PoolingLayerConnection(EList<PoolingNode> nodes) {
+		public PoolingLayerConnection(DepthList<PoolingNode> nodes) {
 			this.nodes = nodes;
 		}
 	}

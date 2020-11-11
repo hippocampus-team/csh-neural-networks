@@ -9,7 +9,7 @@ namespace NeuralNetworks.Layers {
 public class ConvolutionalLayer : SameInputOutputLayer {
 	public override IEnumerable<Unit> units => neurons;
 
-	private readonly EList<ConvolutionalNeuron> neurons;
+	private readonly DepthList<ConvolutionalNeuron> neurons;
 	private List<List<Filter>> kernels { get; }
 	private MatrixModel model { get; }
 
@@ -27,7 +27,7 @@ public class ConvolutionalLayer : SameInputOutputLayer {
 				kernels[f].Add((Filter) filter.Clone());
 		}
 
-		neurons = new EList<ConvolutionalNeuron>(filtersAmount * inputConnection.depth);
+		neurons = new DepthList<ConvolutionalNeuron>(filtersAmount * inputConnection.depth);
 
 		for (int f = 0; f < filtersAmount; f++)
 		for (int d = 0; d < inputConnection.depth; d++)
@@ -93,7 +93,7 @@ public class ConvolutionalLayer : SameInputOutputLayer {
 	public static ConvolutionalLayer getEmpty() => new ConvolutionalLayer();
 	
 	private class ConvolutionalLayerConnection : LayerConnection {
-		private readonly EList<ConvolutionalNeuron> neurons;
+		private readonly DepthList<ConvolutionalNeuron> neurons;
 		
 		public IEnumerable<Unit> enumerable => neurons.toList();
 
@@ -110,7 +110,7 @@ public class ConvolutionalLayer : SameInputOutputLayer {
 		public int length => neurons.length;
 		public int depth => neurons.depth;
 
-		public ConvolutionalLayerConnection(EList<ConvolutionalNeuron> neurons) {
+		public ConvolutionalLayerConnection(DepthList<ConvolutionalNeuron> neurons) {
 			this.neurons = neurons;
 		}
 	}
