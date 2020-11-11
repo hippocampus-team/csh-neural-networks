@@ -13,8 +13,8 @@ public class Pruning {
 		FlexibleNeuralNetwork nn = new FlexibleNeuralNetwork();
 
 		nn.setInputLength(testNum);
-		nn.addDenseLayer(20, new ModifiedSigmoid());
-		nn.addDenseLayer(testNum, new ModifiedSigmoid());
+		nn.addDenseLayer(20, new Sigmoid());
+		nn.addDenseLayer(testNum, new Sigmoid());
 
 		nn.fillPropertiesRandomly();
 

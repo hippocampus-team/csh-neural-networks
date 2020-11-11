@@ -35,20 +35,6 @@ public class Sigmoid : ActivationFunction {
 	}
 }
 
-public class ModifiedSigmoid : ActivationFunction {
-	private const double countApproximationLimit = 50d;
-	
-	public double count(double value) {
-		if (value < -countApproximationLimit) return 0d;
-		if (value > countApproximationLimit) return 1d;
-
-		double k = Math.Exp(value);
-		return k / (1d + k);
-	}
-	
-	public double countDerivative(double value) => value * (1 - value);
-}
-
 public class HyperbolicTangent : ActivationFunction {
 	private const double countApproximationLimit = 50d;
 	
