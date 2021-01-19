@@ -95,13 +95,13 @@ public class NeuralNetwork {
 
 	public string serialize() {
 		JObject nn = new JObject {
-			["name"] = name, 
-			["description"] = description
+			[nameof(name)] = name, 
+			[nameof(description)] = description
 		};
 
 		JArray layersArray = new JArray();
 		foreach (Layer layer in layers) layersArray.Add(layer.toJObject());
-		nn["layers"] = layersArray;
+		nn[nameof(layers)] = layersArray;
 
 		return nn.ToString();
 	}
@@ -117,15 +117,15 @@ public class NeuralNetwork {
 		}
 
 		NeuralNetwork nn = new NeuralNetwork {
-			name = json["name"]?.Value<string>() ?? "", 
-			description = json["description"]?.Value<string>() ?? "",
+			name = json[nameof(name)]?.Value<string>() ?? "", 
+			description = json[nameof(description)]?.Value<string>() ?? "",
 			layers = new List<Layer>()
 		};
 
 		ConstructionNeuronIndexer.startConstruction(nn);
 		
 		try {
-			JArray layersJson = json["layers"]!.Value<JArray>();
+			JArray layersJson = json[nameof(layers)]!.Value<JArray>();
 			foreach (JToken layerJsonToken in layersJson) {
 				JObject layerJson = (JObject) layerJsonToken;
 				

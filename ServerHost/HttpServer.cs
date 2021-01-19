@@ -2,6 +2,7 @@
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using Testing;
 
 namespace ServerHost {
     public class HttpServer {
@@ -16,6 +17,8 @@ namespace ServerHost {
         }
 
         public void start(int port) {
+            ExperimentsManager.loadFromSaved();
+            
             listener.Prefixes.Add("http://localhost:" + port + "/");
             listener.Start();
             Console.WriteLine("Listening for connections on http://localhost:{0}/", port);

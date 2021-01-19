@@ -8,9 +8,9 @@ using NeuralNetworks.Misc;
 namespace Testing {
 
 internal static class Mnist {
-	private const int parallelNns = 4;
-	private const int trainSize = 14;
-	private const int testSize = 4;
+	private const int parallelNns = 2;
+	private const int trainSize = 4;
+	private const int testSize = 2;
 	private const double learningStep = 0.1d;
 
 	public static void run() {
@@ -20,7 +20,7 @@ internal static class Mnist {
 		Console.Write("Enter experiments description: ");
 		string experimentDescription = Console.ReadLine();
 		
-		string rootPath = $"./experiments/{experimentTitle}";
+		string rootPath = $"C://nnlib/experiments/{experimentTitle}";
 		ExperimentLog log = new ExperimentLog(experimentTitle, experimentDescription);
 
 		Console.Write("Initialisation of NNs...");

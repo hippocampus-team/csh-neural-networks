@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using NeuralNetworks;
 using NeuralNetworks.Layers;
+using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
@@ -69,6 +70,7 @@ public class Utils {
 		
 		log.end();
 		File.WriteAllText($"{rootPath}/log.txt", log.getString());
+		File.WriteAllText($"./experiments/{log.title}/info.json", log.getJsonString());
 	}
 
 	private static void createRootResultsDirectoryIfNotExists(string rootPath) {
@@ -89,17 +91,19 @@ public class NNsTestResults <T> {
 }
 
 public class ExperimentLog {
-	private readonly string title;
-	private readonly string description;
+	public string id;
+	public string title;
+	public string description;
 
-	private TimeSpan duration;
-	private readonly DateTime initDateTime;
-	private DateTime finishDateTime;
+	public TimeSpan duration;
+	public DateTime initDateTime;
+	public DateTime finishDateTime;
 
-	private readonly List<LogPhase> phases;
-	private readonly List<LogTopologyLayerRecord> topologyLayerRecords;
+	public List<LogPhase> phases;
+	public List<LogTopologyLayerRecord> topologyLayerRecords;
 	
 	public ExperimentLog() {
+		id = new Guid().GetHashCode().ToString();
 		initDateTime = DateTime.Now;
 		phases = new List<LogPhase>(4);
 		topologyLayerRecords = new List<LogTopologyLayerRecord>();
@@ -156,18 +160,22 @@ public class ExperimentLog {
 
 		return text;
 	}
+	
+	public string getJsonString() {
+		return JObject.FromObject(this).ToString();
+	}
 }
 
 public class LogPhase {
-	private readonly string title;
-	private readonly string configuration;
+	public string title;
+	public string configuration;
 
-	private readonly int iterations;
-	private readonly int amountOfParallelNetworks;
+	public int iterations;
+	public int amountOfParallelNetworks;
 	
-	private TimeSpan duration;
-	private readonly DateTime startDateTime;
-	private DateTime finishDateTime;
+	public TimeSpan duration;
+	public DateTime startDateTime;
+	public DateTime finishDateTime;
 
 	public LogPhase(string title, string configuration, int iterations, int amountOfParallelNetworks) {
 		this.title = title;
@@ -201,18 +209,16 @@ public class LogPhase {
 }
 
 public class LogTopologyLayerRecord {
-	private readonly string type;
-	private readonly int numberOfNeurons;
-	private readonly string configuration;
+	public readonly string type;
+	public readonly int numberOfNeurons;
 
-	public LogTopologyLayerRecord(string type, int numberOfNeurons, string configuration = "") {
+	public LogTopologyLayerRecord(string type, int numberOfNeurons) {
 		this.type = type;
 		this.numberOfNeurons = numberOfNeurons;
-		this.configuration = configuration;
 	}
 
 	public string getString() {
-		return $"{type} {numberOfNeurons} {configuration}\n";
+		return $"{type} {numberOfNeurons}\n";
 	}
 }
 

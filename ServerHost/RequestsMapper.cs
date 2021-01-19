@@ -11,7 +11,13 @@ public class RequestsMapper {
 	public RequestsMapper() {
 		pathDictionary = new Dictionary<string, string> {
 			{ "GET:/api", "api" }, 
-			{ "GET:/experiments", "getExperimentsList" }
+			{ "GET:/experiments", "getExperimentsList" },
+			{ "GET:/experiment", "getExperiment" },
+			{ "POST:/experiment", "editExperiment" },
+			{ "PUT:/experiment", "addExperiment" },
+			{ "DELETE:/experiment", "deleteExperiment" },
+			{ "POST:/experiment/phase", "editPhase" },
+			{ "PUT:/experiment/phase", "addPhase" }
 		};
 	}
 
