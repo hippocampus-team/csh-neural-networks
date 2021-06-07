@@ -21,7 +21,7 @@ internal static class Mnist {
 		string experimentDescription = Console.ReadLine();
 		
 		string rootPath = $"C://nnlib/experiments/{experimentTitle}";
-		ExperimentLog log = new ExperimentLog(experimentTitle, experimentDescription);
+		ExperimentLog log = new ExperimentLog(experimentTitle, experimentDescription, parallelNns);
 
 		Console.Write("Initialisation of NNs...");
 		List<NeuralNetwork> nns = setupNNs(log);
@@ -53,7 +53,7 @@ internal static class Mnist {
 		Console.ReadKey();
 	}
 
-	private static List<NeuralNetwork> setupNNs(ExperimentLog log = null) {
+	private static List<NeuralNetwork> setupNNs(ExperimentLog? log = null) {
 		List<NeuralNetwork> nns = new List<NeuralNetwork>();
 		for (int i = 0; i < parallelNns; i++) {
 			NeuralNetwork nn = new NeuralNetwork();
@@ -86,7 +86,7 @@ internal static class Mnist {
 		
 		log?.startPhase("Training", 
 					   $"MNIST dataset, learning step {learningStep}, correct answer as 1, wrong answer as 0", 
-					   iterations * 1000, nns.Count);
+					   iterations * 1000);
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {
@@ -126,7 +126,7 @@ internal static class Mnist {
 		
 		log?.startPhase("Testing", 
 					   $"MNIST dataset", 
-					   iterations * 1000, nns.Count);
+					   iterations * 1000);
 
 		for (int h = 0; h < iterations; h++) {
 			for (int i = 0; i < 1000; i++) {

@@ -8,6 +8,7 @@ namespace NeuralNetworks.Layers {
 
 public class ConvolutionalLayer : SameInputOutputLayer {
 	public override IEnumerable<Unit> units => neurons;
+	public override LayerType layerType => LayerType.convolutional;
 
 	private readonly DepthList<ConvolutionalNeuron> neurons;
 	private List<List<Filter>> kernels { get; }

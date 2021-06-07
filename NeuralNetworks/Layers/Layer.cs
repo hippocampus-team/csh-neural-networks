@@ -8,6 +8,7 @@ public abstract class Layer {
 	public abstract LayerConnection input { get; protected set; }
 	public abstract LayerConnection output { get; protected set; }
 	public abstract IEnumerable<Unit> units { get; }
+	public abstract LayerType layerType { get; }
 
 	public abstract void count();
 
@@ -69,6 +70,13 @@ public abstract class NoDepthLayerConnection : LayerConnection {
 	
 	public abstract int length { get; }
 	public int depth => 1;
+}
+
+public enum LayerType {
+	simple,
+	dense,
+	convolutional,
+	pooling
 }
 
 }

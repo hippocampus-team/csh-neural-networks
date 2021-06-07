@@ -8,6 +8,7 @@ namespace NeuralNetworks.Layers {
 
 public class SimpleLayer : SameInputOutputLayer {
 	public override IEnumerable<Unit> units => nodes;
+	public override LayerType layerType => LayerType.simple;
 
 	private readonly List<Node> nodes;
 

@@ -8,6 +8,7 @@ namespace NeuralNetworks.Layers {
 
 public class DenseLayer : SameInputOutputLayer {
 	public override IEnumerable<Unit> units => neurons;
+	public override LayerType layerType => LayerType.dense;
 
 	private readonly List<Neuron> neurons;
 

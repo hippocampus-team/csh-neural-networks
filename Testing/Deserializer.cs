@@ -16,7 +16,7 @@ public class Deserializer {
 		string experimentDescription = Console.ReadLine();
 		
 		string rootPath = $"./experiments/{experimentTitle}";
-		ExperimentLog log = new ExperimentLog(experimentTitle, experimentDescription);
+		ExperimentLog log = new ExperimentLog(experimentTitle, experimentDescription, 1);
 		
 		Console.Write("Enter config files name: ./experiments/loads/");
 		string loadName = Console.ReadLine();
@@ -42,8 +42,8 @@ public class Deserializer {
 		Console.ReadKey();
 	}
 
-	private static NeuralNetwork deserialize(string path, ExperimentLog log = null) {
-		log?.startPhase("Deserialization", $"source file {path}", 0, 1);
+	private static NeuralNetwork deserialize(string path, ExperimentLog? log = null) {
+		log?.startPhase("Deserialization", $"source file {path}", 0);
 		string json = File.ReadAllText(path);
 		NeuralNetwork nn = NeuralNetwork.deserialize(json);
 		log?.endPhase();

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NeuralNetworks.Layers;
 using Newtonsoft.Json;
 
 namespace Testing {
 public static class ExperimentsManager {
-	private static List<ExperimentLog> experiments = new List<ExperimentLog>();
+	private static Dictionary<string, ExperimentLog> experiments = new Dictionary<string, ExperimentLog>();
 
 	public static void loadFromSaved() {
 		DirectoryInfo experimentsDirectory = new DirectoryInfo("C://nnlib/experiments");
@@ -18,7 +19,7 @@ public static class ExperimentsManager {
 					string info = File.ReadAllText(directory.FullName + "/info.json");
 					if (info.Equals("")) return;
 					ExperimentLog experiment = JsonConvert.DeserializeObject<ExperimentLog>(info);
-					experiments.Add(experiment);
+					experiments.Add(experiment.id, experiment);
 				} catch (Exception e) {
 					Console.WriteLine("Failed to get experiment from {0}", directory.FullName);
 				}
@@ -28,15 +29,37 @@ public static class ExperimentsManager {
 	
 	public static List<ExperimentMeta> getExperiments() {
 		return experiments.Select(experiment => new ExperimentMeta {
-			id = experiment.id,
-			name = experiment.title,
-			description = experiment.description
+			id = experiment.Key,
+			name = experiment.Value.title,
+			description = experiment.Value.description
 		}).ToList();
 	}
 	
-	// public static ExperimentMeta? getExperiment(string id) {
-	// 	
-	// }
+	public static Experiment? getExperiment(string id) {
+		ExperimentLog log = experiments.First(experiment => experiment.Key == id).Value;
+		
+		return new Experiment {
+			id = log.id,
+			name = log.title,
+			description = log.description,
+			amountOfParallelNetworks = log.amountOfParallelNetworks,
+			duration = (long) Math.Round(log.duration.TotalMilliseconds),
+			initDateTime = log.initDateTime.Ticks / 1000,
+			finishDateTime = log.finishDateTime.Ticks / 1000,
+			phases = log.phases.Select(phase => new ExperimentPhase {
+				title = phase.title,
+				configuration = phase.configuration,
+				iterations = phase.iterations,
+				duration = (long) Math.Round(phase.duration.TotalMilliseconds),
+				startDateTime = phase.startDateTime.Ticks / 1000,
+				finishDateTime = phase.finishDateTime.Ticks / 1000,
+			}).ToList(),
+			topologyLayerRecords = log.topologyLayerRecords.Select(record => new LayerTopologyRecord {
+				type = record.type,
+				numberOfUnits = record.numberOfNeurons
+			}).ToList()
+		};
+	}
 }
 
 public struct ExperimentMeta {
@@ -49,6 +72,7 @@ public struct Experiment {
 	public string id;
 	public string name;
 	public string description;
+	public int amountOfParallelNetworks;
 	public long duration;
 	public long initDateTime;
 	public long finishDateTime;
@@ -68,8 +92,7 @@ public struct ExperimentPhase {
 	public string configuration;
 
 	public int iterations;
-	public int amountOfParallelNetworks;
-	
+
 	public long duration;
 	public long startDateTime;
 	public long finishDateTime;
@@ -79,12 +102,5 @@ public struct LayerTopologyRecord {
 	public LayerType type;
 	public int numberOfUnits;
 	public string configuration;
-}
-
-public enum LayerType {
-	simple,
-	dense,
-	convolutional,
-	pooling
 }
 }

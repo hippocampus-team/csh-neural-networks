@@ -8,6 +8,7 @@ namespace NeuralNetworks.Layers {
 
 public class PoolingLayer : SameInputOutputLayer {
 	public override IEnumerable<Unit> units => nodes;
+	public override LayerType layerType => LayerType.pooling;
 
 	private readonly DepthList<PoolingNode> nodes;
 	private MatrixModel model { get; }

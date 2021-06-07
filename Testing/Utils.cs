@@ -70,7 +70,7 @@ public class Utils {
 		
 		log.end();
 		File.WriteAllText($"{rootPath}/log.txt", log.getString());
-		File.WriteAllText($"./experiments/{log.title}/info.json", log.getJsonString());
+		File.WriteAllText($"{rootPath}/info.json", log.getJsonString());
 	}
 
 	private static void createRootResultsDirectoryIfNotExists(string rootPath) {
@@ -94,6 +94,8 @@ public class ExperimentLog {
 	public string id;
 	public string title;
 	public string description;
+	
+	public int amountOfParallelNetworks;
 
 	public TimeSpan duration;
 	public DateTime initDateTime;
@@ -103,15 +105,21 @@ public class ExperimentLog {
 	public List<LogTopologyLayerRecord> topologyLayerRecords;
 	
 	public ExperimentLog() {
-		id = new Guid().GetHashCode().ToString();
+		id = new Random(new Guid().GetHashCode()).Next(Int32.MaxValue - 1).ToString();
 		initDateTime = DateTime.Now;
 		phases = new List<LogPhase>(4);
 		topologyLayerRecords = new List<LogTopologyLayerRecord>();
 	}
+	
+	public ExperimentLog(int amountOfParallelNetworks) : this() {
+		this.amountOfParallelNetworks = amountOfParallelNetworks;
+	}
 
-	public ExperimentLog(string title, string description, NeuralNetwork topologyRecordNetwork = null) : this() {
+	public ExperimentLog(string title, string description, int amountOfParallelNetworks, 
+						 NeuralNetwork topologyRecordNetwork = null) : this(amountOfParallelNetworks) {
 		this.title = title;
 		this.description = description;
+		this.amountOfParallelNetworks = amountOfParallelNetworks;
 		
 		if (topologyRecordNetwork != null) 
 			recordTopologyFromNetwork(topologyRecordNetwork);
@@ -122,8 +130,8 @@ public class ExperimentLog {
 		duration = finishDateTime - initDateTime;
 	}
 
-	public void startPhase(string title, string configuration, int iterations, int amountOfParallelNetworks) {
-		phases.Add(new LogPhase(title, configuration, iterations, amountOfParallelNetworks));
+	public void startPhase(string title, string configuration, int iterations) {
+		phases.Add(new LogPhase(title, configuration, iterations));
 	}
 
 	public void endPhase() {
@@ -134,7 +142,7 @@ public class ExperimentLog {
 		topologyLayerRecords.Clear();
 		
 		foreach (Layer layer in nn.layers)
-			topologyLayerRecords.Add(new LogTopologyLayerRecord(layer.GetType().Name, layer.units.Count()));
+			topologyLayerRecords.Add(new LogTopologyLayerRecord(layer.layerType, layer.units.Count()));
 	}
 
 	public string getString() {
@@ -171,17 +179,15 @@ public class LogPhase {
 	public string configuration;
 
 	public int iterations;
-	public int amountOfParallelNetworks;
-	
+
 	public TimeSpan duration;
 	public DateTime startDateTime;
 	public DateTime finishDateTime;
 
-	public LogPhase(string title, string configuration, int iterations, int amountOfParallelNetworks) {
+	public LogPhase(string title, string configuration, int iterations) {
 		this.title = title;
 		this.configuration = configuration;
 		this.iterations = iterations;
-		this.amountOfParallelNetworks = amountOfParallelNetworks;
 		
 		startDateTime = DateTime.Now;
 	}
@@ -197,7 +203,6 @@ public class LogPhase {
 		text += $"/// {title}\n";
 		text += $"Configuration: {configuration}\n";
 		text += $"Iterations: {iterations}\n";
-		text += $"Parallel networks: {amountOfParallelNetworks}\n";
 		text += $"\n";
 		text += $"Duration: {duration}\n";
 		text += $"Initiated at: {startDateTime}\n";
@@ -209,10 +214,10 @@ public class LogPhase {
 }
 
 public class LogTopologyLayerRecord {
-	public readonly string type;
-	public readonly int numberOfNeurons;
+	public LayerType type;
+	public int numberOfNeurons;
 
-	public LogTopologyLayerRecord(string type, int numberOfNeurons) {
+	public LogTopologyLayerRecord(LayerType type, int numberOfNeurons) {
 		this.type = type;
 		this.numberOfNeurons = numberOfNeurons;
 	}
